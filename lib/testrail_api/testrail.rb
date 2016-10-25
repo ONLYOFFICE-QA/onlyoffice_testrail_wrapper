@@ -110,13 +110,13 @@ class Testrail2
   # @return [Array, ProjectTestrail] array of projects
   def get_projects
     projects = Testrail2.http_get 'index.php?/api/v2/get_projects'
-    @projects_names = Hash_Helper.get_hash_from_array_with_two_parameters(projects, 'name', 'id') if @projects_names.empty?
+    @projects_names = HashHelper.get_hash_from_array_with_two_parameters(projects, 'name', 'id') if @projects_names.empty?
     projects
   end
 
   def create_new_project(name, announcement = '', show_announcement = true)
-    new_project = Testrail2.http_post('index.php?/api/v2/add_project', name: StringHelper.warnstrip!(name.to_s), announcement: announcement,
-                                                                       show_announcement: show_announcement).parse_to_class_variable TestrailProject
+    new_project = HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/add_project', name: StringHelper.warnstrip!(name.to_s), announcement: announcement,
+                                                                       show_announcement: show_announcement), TestrailProject)
     LoggerHelper.print_to_log 'Created new project: ' + new_project.name
     new_project.instance_variable_set('@testrail', self)
     @projects_names[new_project.name] = new_project.id
@@ -134,7 +134,7 @@ class Testrail2
   # Get all projects on testrail
   # @return [Array, ProjectTestrail] array of projects
   def get_project_by_id(id)
-    project = Testrail2.http_get('index.php?/api/v2/get_project/' + id.to_s).parse_to_class_variable TestrailProject
+    project = HashHelper.parse_to_class_variable(Testrail2.http_get('index.php?/api/v2/get_project/' + id.to_s), TestrailProject)
     LoggerHelper.print_to_log('Initialized project: ' + project.name)
     project.instance_variable_set('@testrail', self)
     project

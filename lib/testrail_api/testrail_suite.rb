@@ -37,7 +37,7 @@ class TestrailSuite
   # @param [String] description description of test run
   # @return [TestRunTestRail] created test run
   def start_test_run(name, description = '')
-    Testrail2.http_post('index.php?/api/v2/add_run/' + @project_id.to_s, name: StringHelper.warnstrip!(name.to_s), description: description, suite_id: @id).parse_to_class_variable TestrailRun
+    HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/add_run/' + @project_id.to_s, name: StringHelper.warnstrip!(name.to_s), description: description, suite_id: @id), TestrailRun)
   end
 
   def section(name_or_id = 'All Test Cases')
@@ -56,8 +56,8 @@ class TestrailSuite
   # @param [Integer] parent_section id of parent section, default = nil
   def create_new_section(name, parent_section = nil)
     parent_section = get_section_by_name(parent_section).id if parent_section.is_a?(String)
-    new_section = Testrail2.http_post('index.php?/api/v2/add_section/' + @project_id.to_s, name: StringHelper.warnstrip!(name.to_s),
-                                                                                           parent_id: parent_section, suite_id: @id).parse_to_class_variable TestrailSection
+    new_section = HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/add_section/' + @project_id.to_s, name: StringHelper.warnstrip!(name.to_s),
+                                                                                           parent_id: parent_section, suite_id: @id), TestrailSection)
     LoggerHelper.print_to_log 'Created new section: ' + new_section.name
     @sections_names[new_section.name] = new_section.id
     new_section.instance_variable_set '@project_id', @project_id
@@ -69,12 +69,12 @@ class TestrailSuite
   # @return [Array, TestrailSuite] array with sections
   def get_sections
     sections = Testrail2.http_get('index.php?/api/v2/get_sections/' + @project_id.to_s + '&suite_id=' + @id.to_s)
-    @sections_names = Hash_Helper.get_hash_from_array_with_two_parameters(sections, 'name', 'id') if @sections_names.nil?
+    @sections_names = HashHelper.get_hash_from_array_with_two_parameters(sections, 'name', 'id') if @sections_names.nil?
     sections
   end
 
   def get_section_by_id(id)
-    section = Testrail2.http_get('index.php?/api/v2/get_section/' + id.to_s).parse_to_class_variable TestrailSection
+    section = HashHelper.parse_to_class_variable(Testrail2.http_get('index.php?/api/v2/get_section/' + id.to_s), TestrailSection)
     section.instance_variable_set '@project_id', @project_id
     section.instance_variable_set '@suite', self
     section
@@ -103,7 +103,7 @@ class TestrailSuite
   def update(name, description = nil)
     @project.suites_names.delete @name
     @project.suites_names[StringHelper.warnstrip!(name.to_s)] = @id
-    updated_suite = Testrail2.http_post('index.php?/api/v2/update_suite/' + @id.to_s, name: name, description: description).parse_to_class_variable TestrailSuite
+    updated_suite = HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/update_suite/' + @id.to_s, name: name, description: description), TestrailSuite)
     LoggerHelper.print_to_log 'Updated suite: ' + updated_suite.name
     updated_suite
   end

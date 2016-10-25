@@ -25,14 +25,14 @@ class TestrailTest
 
   def get_results
     @results.nil? ? @results = Testrail2.http_get('index.php?/api/v2/get_results/' + @id.to_s) : (return @results)
-    @results.each_with_index { |result, index| @results[index] = result.parse_to_class_variable TestrailResult }
+    @results.each_with_index { |result, index| @results[index] = HashHelper.parse_to_class_variable(result, TestrailResult) }
     @results
   end
 
   def add_result(result, comment = '', version = '')
     result = TestrailResult::RESULT_STATUSES[result] if result.is_a?(Symbol)
-    Testrail2.http_post('index.php?/api/v2/add_result/' + @id.to_s, status_id: result,
-                                                                    comment: comment, version: version).parse_to_class_variable TestrailResult
+    HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/add_result/' + @id.to_s, status_id: result,
+                                                                    comment: comment, version: version), TestrailResult)
     LoggerHelper.print_to_log 'Set test result: ' + result.to_s
   end
 end

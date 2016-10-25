@@ -11,8 +11,8 @@ class TestrailMilestone
   end
 
   def update(is_completed = false, name = @name, description = @description)
-    Testrail2.http_post('index.php?/api/v2/update_milestone/' + @id.to_s, name: name, description: description,
-                                                                          is_completed: is_completed).parse_to_class_variable TestrailMilestone
+    HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/update_milestone/' + @id.to_s, name: name, description: description,
+                                                                          is_completed: is_completed), TestrailMilestone)
   end
 
   def delete

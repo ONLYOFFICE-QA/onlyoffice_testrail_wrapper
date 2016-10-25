@@ -34,8 +34,8 @@ class TestrailCase
   def update(title = @title, type_id = @type_id, priority_id = @priority_id, custom_steps = @custom_steps)
     @section.cases_names.delete @title
     @section.cases_names[StringHelper.warnstrip!(title.to_s)] = @id
-    Testrail2.http_post('index.php?/api/v2/update_case/' + @id.to_s, title: title, type_id: type_id,
-                                                                     priority_id: priority_id, custom_steps: custom_steps).parse_to_class_variable TestrailCase
+    HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/update_case/' + @id.to_s, title: title, type_id: type_id,
+                                                                     priority_id: priority_id, custom_steps: custom_steps), TestrailCase)
   end
 
   def delete
@@ -46,13 +46,13 @@ class TestrailCase
 
   def get_results(run_id)
     case_results = Testrail2.http_get 'index.php?/api/v2/get_results_for_case/' + run_id.to_s + '/' + @id.to_s
-    case_results.each_with_index { |test_case, index| case_results[index] = test_case.parse_to_class_variable TestrailResult }
+    case_results.each_with_index { |test_case, index| case_results[index] = HashHelper.parse_to_class_variable(test_case, TestrailResult) }
     case_results
   end
 
   def add_result(run_id, result, comment = '', custom_fields = {}, version = '')
-    response = Testrail2.http_post('index.php?/api/v2/add_result_for_case/' + run_id.to_s + '/' + @id.to_s, { status_id: TestrailResult::RESULT_STATUSES[result],
-                                                                                                              comment: comment, version: version }.merge(custom_fields)).parse_to_class_variable TestrailResult
+    response = HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/add_result_for_case/' + run_id.to_s + '/' + @id.to_s, { status_id: TestrailResult::RESULT_STATUSES[result],
+                                                                                                              comment: comment, version: version }.merge(custom_fields)), TestrailResult)
     LoggerHelper.print_to_log "Set test case result: #{result}. URL: #{Testrail2.get_testrail_address}index.php?/tests/view/#{response.test_id}", output_colors[result]
   end
 
