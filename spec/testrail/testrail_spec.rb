@@ -1,5 +1,4 @@
-require 'rspec'
-require_relative '../../testing_shared'
+require 'spec_helper'
 
 describe Testrail2, :use_private_key do
   describe 'Tesrail Run' do

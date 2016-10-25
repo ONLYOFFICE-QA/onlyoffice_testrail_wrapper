@@ -1,0 +1,1 @@
+require_relative 'testrail_api/testrail'
