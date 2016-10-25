@@ -61,7 +61,7 @@ class TestrailSection
 
   def get_case_by_name(name)
     get_cases if @cases_names.nil?
-    @cases_names[name.to_s.warnstrip!].nil? ? nil : get_case_by_id(@cases_names[name])
+    @cases_names[StringHelper.warnstrip!(name.to_s)].nil? ? nil : get_case_by_id(@cases_names[name])
   end
 
   # Init case by it's name
@@ -79,7 +79,7 @@ class TestrailSection
   # @param [String] custom_steps steps to perform
   # @return [TestCaseTestrail] created test case
   def create_new_case(title, type_id = 3, priority_id = 4, custom_steps = '')
-    new_case = Testrail2.http_post('index.php?/api/v2/add_case/' + @id.to_s, title: title.to_s.warnstrip!, type_id: type_id,
+    new_case = Testrail2.http_post('index.php?/api/v2/add_case/' + @id.to_s, title: StringHelper.warnstrip!(title.to_s), type_id: type_id,
                                                                              priority_id: priority_id, custom_steps: custom_steps).parse_to_class_variable TestrailCase
     new_case.instance_variable_set('@section', self)
     LoggerHelper.print_to_log "Created new case: #{new_case.title}"
@@ -89,7 +89,7 @@ class TestrailSection
 
   def update(name = @name, parent_id = @parent_id)
     @suite.sections_names.delete @name
-    @suite.sections_names[name.to_s.warnstrip!] = @id
+    @suite.sections_names[StringHelper.warnstrip!(name.to_s)] = @id
     updated_section = Testrail2.http_post('index.php?/api/v2/update_section/' + @id.to_s, name: name, parent_id: parent_id).parse_to_class_variable TestrailSection
     LoggerHelper.print_to_log 'Updated section: ' + updated_section.name
     updated_section

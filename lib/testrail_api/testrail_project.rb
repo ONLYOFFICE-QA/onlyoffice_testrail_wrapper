@@ -48,7 +48,7 @@ class TestrailProject
 
   def update(is_completed = false, name = @name, announcement = @announcement, show_announcement = @show_announcement)
     @testrail.projects_names.delete[@name]
-    @testrail.projects_names[name.to_s.warnstrip!] = @id
+    @testrail.projects_names[StringHelper.warnstrip!(name.to_s)] = @id
     updated_project = Testrail2.http_post('index.php?/api/v2/update_project/' + @id.to_s, name: name, announcement: announcement,
                                                                                           show_announcement: show_announcement, is_completed: is_completed).parse_to_class_variable TestrailProject
     LoggerHelper.print_to_log 'Updated project: ' + updated_project.name
@@ -87,7 +87,7 @@ class TestrailProject
   # @return [TestrailSuite] test suite
   def get_suite_by_name(name)
     get_suites if @suites_names.empty?
-    @suites_names[name.warnstrip!].nil? ? nil : get_suite_by_id(@suites_names[name])
+    @suites_names[StringHelper.warnstrip!(name)].nil? ? nil : get_suite_by_id(@suites_names[name])
   end
 
   def get_suite_by_id(id)
@@ -110,7 +110,7 @@ class TestrailProject
   # @param [String] description description of suite (default = nil)
   # @return [TestrailSuite] created suite
   def create_new_suite(name, description = '')
-    new_suite = Testrail2.http_post('index.php?/api/v2/add_suite/' + @id.to_s, name: name.warnstrip!, description: description).parse_to_class_variable TestrailSuite
+    new_suite = Testrail2.http_post('index.php?/api/v2/add_suite/' + @id.to_s, name: StringHelper.warnstrip!(name), description: description).parse_to_class_variable TestrailSuite
     new_suite.instance_variable_set('@project', self)
     LoggerHelper.print_to_log 'Created new suite: ' + new_suite.name
     @suites_names[new_suite.name] = new_suite.id
@@ -147,7 +147,7 @@ class TestrailProject
   # @return [TestRunTestRail] test run
   def get_run_by_name(name)
     get_runs if @runs_names.empty?
-    @runs_names[name.warnstrip!].nil? ? nil : get_run_by_id(@runs_names[name])
+    @runs_names[StringHelper.warnstrip!(name)].nil? ? nil : get_run_by_id(@runs_names[name])
   end
 
   def get_run_by_id(id)
@@ -164,7 +164,7 @@ class TestrailProject
   end
 
   def create_new_run(name, suite_id, description = '')
-    new_run = Testrail2.http_post('index.php?/api/v2/add_run/' + @id.to_s, name: name.warnstrip!, description: description, suite_id: suite_id).parse_to_class_variable TestrailRun
+    new_run = Testrail2.http_post('index.php?/api/v2/add_run/' + @id.to_s, name: StringHelper.warnstrip!(name), description: description, suite_id: suite_id).parse_to_class_variable TestrailRun
     LoggerHelper.print_to_log 'Created new run: ' + new_run.name
     new_run.instance_variable_set('@project', self)
     @runs_names[new_run.name] = new_run.id
@@ -205,7 +205,7 @@ class TestrailProject
 
   def get_plan_by_name(name)
     get_plans if @plans_names.empty?
-    @plans_names[name.to_s.warnstrip!].nil? ? nil : get_plan_by_id(@plans_names[name])
+    @plans_names[StringHelper.warnstrip!(name.to_s)].nil? ? nil : get_plan_by_id(@plans_names[name])
   end
 
   def get_plans
@@ -218,7 +218,7 @@ class TestrailProject
   # @param [String] description
   # @param [Integer] milestone_id
   def create_new_plan(name, entries = [], description = '', milestone_id = nil)
-    new_plan = Testrail2.http_post('index.php?/api/v2/add_plan/' + @id.to_s, name: name.warnstrip!, description: description,
+    new_plan = Testrail2.http_post('index.php?/api/v2/add_plan/' + @id.to_s, name: StringHelper.warnstrip!(name), description: description,
                                                                              milestone_id: milestone_id, entries: entries).parse_to_class_variable TestrailPlan
     LoggerHelper.print_to_log 'Created new plan: ' + new_plan.name
     new_plan.entries.each_with_index do |entry, i|
@@ -257,7 +257,7 @@ class TestrailProject
 
   def get_milestone_by_name(name)
     get_milestones if @milestones_names.empty?
-    @milestones_names[name.to_s.warnstrip!].nil? ? nil : get_milestone_by_id(@milestones_names[name])
+    @milestones_names[StringHelper.warnstrip!(name.to_s)].nil? ? nil : get_milestone_by_id(@milestones_names[name])
   end
 
   def get_milestones
@@ -269,7 +269,7 @@ class TestrailProject
   # @param [String] name of milestone
   # @param [String] description of milestone
   def create_new_milestone(name, description = '')
-    new_milestone = Testrail2.http_post('index.php?/api/v2/add_milestone/' + @id.to_s, :name => name.to_s.warnstrip!, description => description).parse_to_class_variable TestrailMilestone
+    new_milestone = Testrail2.http_post('index.php?/api/v2/add_milestone/' + @id.to_s, :name => StringHelper.warnstrip!(name.to_s), description => description).parse_to_class_variable TestrailMilestone
     LoggerHelper.print_to_log 'Created new milestone: ' + new_milestone.name
     new_milestone
   end

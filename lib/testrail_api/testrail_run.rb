@@ -93,7 +93,7 @@ class TestrailRun
 
   def get_test_by_name(name)
     get_tests if @tests_names.empty?
-    @tests_names[name.to_s.dup.warnstrip!].nil? ? nil : get_test_by_id(@tests_names[name])
+    @tests_names[StringHelper.warnstrip!(name.to_s.dup)].nil? ? nil : get_test_by_id(@tests_names[name])
   end
 
   def add_result_by_case_id(result, case_id, comment = '', version = '')
@@ -107,7 +107,7 @@ class TestrailRun
 
   def update(name = @name, description = @description)
     @project.runs_names.delete @name
-    @project.runs_names[name.to_s.warnstrip!] = @id
+    @project.runs_names[StringHelper.warnstrip!(name.to_s)] = @id
     updated_plan = Testrail2.http_post('index.php?/api/v2/update_run/' + @id.to_s, name: name, description: description).parse_to_class_variable TestrailRun
     LoggerHelper.print_to_log 'Updated run: ' + updated_plan.name
     updated_plan

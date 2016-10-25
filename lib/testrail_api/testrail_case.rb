@@ -33,7 +33,7 @@ class TestrailCase
 
   def update(title = @title, type_id = @type_id, priority_id = @priority_id, custom_steps = @custom_steps)
     @section.cases_names.delete @title
-    @section.cases_names[title.to_s.warnstrip!] = @id
+    @section.cases_names[StringHelper.warnstrip!(title.to_s)] = @id
     Testrail2.http_post('index.php?/api/v2/update_case/' + @id.to_s, title: title, type_id: type_id,
                                                                      priority_id: priority_id, custom_steps: custom_steps).parse_to_class_variable TestrailCase
   end

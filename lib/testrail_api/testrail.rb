@@ -115,7 +115,7 @@ class Testrail2
   end
 
   def create_new_project(name, announcement = '', show_announcement = true)
-    new_project = Testrail2.http_post('index.php?/api/v2/add_project', name: name.to_s.warnstrip!, announcement: announcement,
+    new_project = Testrail2.http_post('index.php?/api/v2/add_project', name: StringHelper.warnstrip!(name.to_s), announcement: announcement,
                                                                        show_announcement: show_announcement).parse_to_class_variable TestrailProject
     LoggerHelper.print_to_log 'Created new project: ' + new_project.name
     new_project.instance_variable_set('@testrail', self)
@@ -142,7 +142,7 @@ class Testrail2
 
   def get_project_by_name(name)
     get_projects if @projects_names.empty?
-    @projects_names[name.to_s.warnstrip!].nil? ? nil : get_project_by_id(@projects_names[name.to_s.warnstrip!])
+    @projects_names[StringHelper.warnstrip!(name.to_s)].nil? ? nil : get_project_by_id(@projects_names[StringHelper.warnstrip!(name.to_s)])
   end
 
   # Check if Testrail connection is available
