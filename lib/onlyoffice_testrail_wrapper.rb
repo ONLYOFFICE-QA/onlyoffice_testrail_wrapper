@@ -1,4 +1,4 @@
-require_relative 'onlyoffice_tetsrail_wrapper/testrail'
+require_relative 'onlyoffice_tetsrail_wrapper/testrail_helper'
 require_relative 'onlyoffice_tetsrail_wrapper/helpers/hash_helper'
 require_relative 'onlyoffice_tetsrail_wrapper/helpers/logger_helper'
 require_relative 'onlyoffice_tetsrail_wrapper/helpers/string_helper'
