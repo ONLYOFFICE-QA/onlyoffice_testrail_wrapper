@@ -5,7 +5,9 @@ module OnlyofficeTestrailWrapper
   module TestrailHelperRspecMetadata
     # @return [String] example execution time in seconds
     def example_time_in_seconds(example)
-      "#{(Time.now - example.metadata[:execution_result].started_at).to_i}s"
+      elapsed = (Time.now - example.metadata[:execution_result].started_at).to_i
+      elapsed +=1 if elapsed.zero?
+      "#{elapsed}s"
     end
 
     # Fill default values for custom fields
