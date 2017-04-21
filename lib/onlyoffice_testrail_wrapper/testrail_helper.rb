@@ -104,7 +104,6 @@ module OnlyofficeTestrailWrapper
       else
         result = :aborted
         comment += "\n" + exception.to_s
-        custom_fields[:custom_autotest_error_line] = exception.backtrace.join("\n") unless exception.backtrace.nil?
       end
       @last_case = example.description
       @suite.section(section_name).case(example.description).add_result @run.id, result, comment, custom_fields

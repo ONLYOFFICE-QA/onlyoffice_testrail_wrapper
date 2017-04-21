@@ -21,7 +21,10 @@ module OnlyofficeTestrailWrapper
       custom_fields[:elapsed] = example_time_in_seconds(example)
       custom_fields[:version] = version || @plan.try(:name)
       custom_fields[:custom_host] = SystemHelper.hostname
-      custom_fields[:custom_screenshot_link] = screenshot_link if example.exception
+      if example.exception
+        custom_fields[:custom_autotest_error_line] = example.exception.backtrace.join("\n") unless example.exception.backtrace.nil?
+        custom_fields[:custom_screenshot_link] = screenshot_link unless screenshot_link.nil?
+      end
       custom_fields
     end
 
@@ -29,7 +32,7 @@ module OnlyofficeTestrailWrapper
     # empty string if not supported
     def screenshot_link
       return AppManager.create_screenshots if AppManager.respond_to?(:create_screenshots)
-      ''
+      nil
     end
 
     def parse_pending_comment(pending_message)
