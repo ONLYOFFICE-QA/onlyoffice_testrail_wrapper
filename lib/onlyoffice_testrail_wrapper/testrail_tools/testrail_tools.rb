@@ -93,8 +93,9 @@ module OnlyofficeTestrailWrapper
     end
 
     def self.check_config(*args)
+      return if @testrail_config && (@testrail_config.instance_variables & args[1..-1]) == args[1..-1]
       raise "Method: #{args.shift} - some of needed parameters are missing: #{args.join(', ')}. To configure them, type:\n
-      TestrailTools.configure do |config|\n\t\tconfig.param_name = value\n\tend" unless @testrail_config && (@testrail_config.instance_variables & args[1..-1]) == args[1..-1]
+             TestrailTools.configure do |config|\n\t\tconfig.param_name = value\n\tend"
     end
 
     def self.get_most_failed
