@@ -4,7 +4,7 @@ module OnlyofficeTestrailWrapper
     attr_accessor :backtrace
 
     def initialize
-      @backtrace = %w(TestBackTraceLine1 TestBackTraceLine2)
+      @backtrace = %w[TestBackTraceLine1 TestBackTraceLine2]
     end
   end
 
