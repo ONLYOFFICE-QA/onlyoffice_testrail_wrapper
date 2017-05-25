@@ -6,14 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Layout/EmptyLineAfterMagicComment:
-  Exclude:
-    - 'lib/onlyoffice_testrail_wrapper/testrail.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_milestone.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_suite.rb'
-
 # Offense count: 1
 Lint/RescueException:
   Exclude:

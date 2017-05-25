@@ -1,4 +1,3 @@
-# encoding: utf-8
 module OnlyofficeTestrailWrapper
   class TestrailMilestone
     attr_accessor :id, :name, :description, :is_completed

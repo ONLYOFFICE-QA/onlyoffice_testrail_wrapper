@@ -1,4 +1,3 @@
-# encoding: utf-8
 # @author Roman.Zagudaev
 # lib for working with http queries
 

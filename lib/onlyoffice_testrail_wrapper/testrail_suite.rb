@@ -1,4 +1,3 @@
-# encoding: utf-8
 require_relative 'testrail_project'
 require_relative 'testrail_section'
 require_relative 'testrail_run'
