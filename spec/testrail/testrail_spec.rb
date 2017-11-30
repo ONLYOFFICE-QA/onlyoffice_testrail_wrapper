@@ -49,7 +49,7 @@ describe OnlyofficeTestrailWrapper::Testrail2 do
       end
 
       after do
-        OnlyofficeTestrailWrapper::Testrail2.testrail_url = 'http://192.241.186.105/testrail/'
+        OnlyofficeTestrailWrapper::Testrail2.testrail_url = 'http://138.197.115.6/testrail/'
       end
     end
   end
