@@ -3,26 +3,27 @@ require 'spec_helper'
 describe OnlyofficeTestrailWrapper::Testrail2 do
   describe 'Methods Tests' do
     let(:project) { OnlyofficeTestrailWrapper::Testrail2.new.project('Canvas Document Editor Autotests') }
+    plan = 'ver. 5.0.5 (build:26)'
     describe 'Tesrail Run' do
       it 'TestrailProject.plan' do
-        expect(project.plan('ver. 3.5.0 (build:199, rev:65637)')).to be_a(OnlyofficeTestrailWrapper::TestrailPlan)
+        expect(project.plan(plan)).to be_a(OnlyofficeTestrailWrapper::TestrailPlan)
       end
 
       it 'TestrailProject.runs' do
-        expect(project.plan('ver. 3.5.0 (build:199, rev:65637)').runs).to be_a(Array)
-        expect(project.plan('ver. 3.5.0 (build:199, rev:65637)').runs.first).to be_a(OnlyofficeTestrailWrapper::TestrailRun)
+        expect(project.plan(plan).runs).to be_a(Array)
+        expect(project.plan(plan).runs.first).to be_a(OnlyofficeTestrailWrapper::TestrailRun)
       end
 
       it 'TestrailProject.plan.run' do
-        expect(project.plan('ver. 3.5.0 (build:199, rev:65637)').run('All Formulas')).to be_a(OnlyofficeTestrailWrapper::TestrailRun)
+        expect(project.plan(plan).run('All Formulas')).to be_a(OnlyofficeTestrailWrapper::TestrailRun)
       end
 
       it 'TestrailProject.plan.run unknown name' do
-        expect(project.plan('ver. 3.5.0 (build:199, rev:65637)').run('non-existing')).to be_nil
+        expect(project.plan(plan).run('non-existing')).to be_nil
       end
 
       it 'TestrailProject.plan.run.duration' do
-        run = project.plan('ver. 3.5.0 (build:199, rev:65637)').run('[Version history] for Table Smoke Test')
+        run = project.plan(plan).run('[Version history] for Table Smoke Test')
         expect(run.duration).to be > 0.1
       end
     end
