@@ -1,4 +1,5 @@
 require_relative 'testrail_helper/testrail_helper_rspec_metadata'
+require_relative 'testrail_helper/testrail_status_helper'
 require_relative 'testrail'
 require_relative 'helpers/bugzilla_helper'
 require_relative 'helpers/ruby_helper'
@@ -9,6 +10,7 @@ module OnlyofficeTestrailWrapper
   class TestrailHelper
     include RubyHelper
     include TestrailHelperRspecMetadata
+    include TestrailStatusHelper
     attr_reader :project, :plan, :suite, :run
     attr_accessor :add_all_suites, :ignore_parameters, :suites_to_add, :search_plan_by_substring, :in_debug, :version
 
@@ -116,8 +118,11 @@ module OnlyofficeTestrailWrapper
       @run.get_tests.map { |test| test['title'] if test['status_id'] == 3 || test['status_id'] == 4 }.compact
     end
 
+    # @param [Array] result. Example: [:retest, :passed]
     def get_tests_by_result(result)
-      @run.get_tests.map { |test| test['title'] if result == TestrailResult::RESULT_STATUSES.key(test['status_id']) }.compact
+      check_status_exist(result)
+      result = [result] unless result.is_a?(Array)
+      @run.get_tests.map { |test| test['title'] if result.include?(TestrailResult::RESULT_STATUSES.key(test['status_id'])) }.compact
     end
 
     def delete_plan(plan_name)
