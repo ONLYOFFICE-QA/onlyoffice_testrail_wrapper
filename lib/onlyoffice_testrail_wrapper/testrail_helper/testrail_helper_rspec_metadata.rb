@@ -1,8 +1,14 @@
-require 'active_support/core_ext/object/try'
-
 module OnlyofficeTestrailWrapper
   # Module for working with rspec metadata
   module TestrailHelperRspecMetadata
+    # @return [String] version of tested app
+    def version
+      return @version if @version
+      return @plan.name if @plan && @plan.name
+
+      'Unknown'
+    end
+
     # @return [String] example execution time in seconds
     def example_time_in_seconds(example)
       execution_time = (Time.now - example.metadata[:execution_result].started_at).to_i
@@ -20,7 +26,7 @@ module OnlyofficeTestrailWrapper
 
       custom_fields[:custom_js_error] = WebDriver.web_console_error unless WebDriver.web_console_error.nil?
       custom_fields[:elapsed] = example_time_in_seconds(example)
-      custom_fields[:version] = version || @plan.try(:name)
+      custom_fields[:version] = version
       custom_fields[:custom_host] = SystemHelper.hostname
       custom_fields[:custom_screenshot_link] = screenshot_link if example.exception
       custom_fields

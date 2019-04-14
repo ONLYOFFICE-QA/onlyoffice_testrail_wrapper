@@ -6,6 +6,7 @@
 * Extract `Bugzilla` helpers to separate gem `onlyoffice_bugzilla_helper`
 * Drop support of Ruby 2.1
 * Add plan url for error while adding result to closed plan
+* Remove dependency of `activesupport`
 
 ### Fixes
 * Fix problem with adding result to testrail if test took less than 1 second
