@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 describe OnlyofficeTestrailWrapper::TestrailHelper do
   let(:helper) { OnlyofficeTestrailWrapper::TestrailHelper.new('Test Project', 'Test Suite', 'Test Plan') }

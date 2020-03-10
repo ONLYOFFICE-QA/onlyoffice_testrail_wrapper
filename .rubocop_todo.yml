@@ -60,13 +60,6 @@ Style/Documentation:
     - 'lib/onlyoffice_testrail_wrapper/testrail_test.rb'
     - 'lib/onlyoffice_testrail_wrapper/testrail_tools/testrail_tools.rb'
 
-# Offense count: 34
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: always, always_true, never
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: ConvertCodeThatCanStartToReturnNil, AllowedMethods.

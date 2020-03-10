@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OnlyofficeTestrailWrapper
   # @author Roman.Zagudaev
   # Class for description of test case

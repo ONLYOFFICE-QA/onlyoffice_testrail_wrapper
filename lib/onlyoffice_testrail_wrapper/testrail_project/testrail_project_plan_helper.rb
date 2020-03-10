@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OnlyofficeTestrailWrapper
   # Mehtods to help working with Plan in Project
   module TestrailProjectPlanHelper

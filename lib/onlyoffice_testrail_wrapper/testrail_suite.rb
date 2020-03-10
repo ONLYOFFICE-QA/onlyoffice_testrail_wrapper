@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'testrail_project'
 require_relative 'testrail_section'
 require_relative 'testrail_run'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OnlyofficeTestrailWrapper
   # Module for working with rspec metadata
   module TestrailHelperRspecMetadata

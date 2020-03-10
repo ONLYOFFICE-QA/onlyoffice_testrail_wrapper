@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OnlyofficeTestrailWrapper
   class TestrailMilestone
     attr_accessor :id, :name, :description, :is_completed
