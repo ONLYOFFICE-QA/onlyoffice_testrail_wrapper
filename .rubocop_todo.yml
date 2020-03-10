@@ -46,20 +46,6 @@ Naming/AccessorMethodName:
     - 'lib/onlyoffice_testrail_wrapper/testrail_test.rb'
     - 'lib/onlyoffice_testrail_wrapper/testrail_tools/testrail_tools.rb'
 
-# Offense count: 14
-# Cop supports --auto-correct.
-# Configuration parameters: SkipBlocks, EnforcedStyle.
-# SupportedStyles: described_class, explicit
-RSpec/DescribedClass:
-  Exclude:
-    - 'spec/helpers/hash_helper_spec.rb'
-    - 'spec/helpers/string_helper_spec.rb'
-    - 'spec/helpers/system_helper_spec.rb'
-    - 'spec/testrail/testrail_helper_metadata_spec.rb'
-    - 'spec/testrail/testrail_helper_spec.rb'
-    - 'spec/testrail/testrail_spec.rb'
-    - 'spec/testrail/testrail_tools_spec.rb'
-
 # Offense count: 1
 # Configuration parameters: Max.
 RSpec/ExampleLength:

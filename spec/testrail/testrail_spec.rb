@@ -5,7 +5,7 @@ require 'spec_helper'
 describe OnlyofficeTestrailWrapper::Testrail2 do
   old_url = nil
   describe 'Methods Tests' do
-    let(:project) { OnlyofficeTestrailWrapper::Testrail2.new.project('onlyoffice_testrail_wrapper ci tests') }
+    let(:project) { described_class.new.project('onlyoffice_testrail_wrapper ci tests') }
 
     plan = 'ci plan'
     existing_run = 'Existing Run'
@@ -50,21 +50,21 @@ describe OnlyofficeTestrailWrapper::Testrail2 do
   describe 'Availability' do
     describe 'available?' do
       before do
-        OnlyofficeTestrailWrapper::Testrail2.new
-        old_url = OnlyofficeTestrailWrapper::Testrail2.testrail_url
+        described_class.new
+        old_url = described_class.testrail_url
       end
 
       after do
-        OnlyofficeTestrailWrapper::Testrail2.testrail_url = old_url
+        described_class.testrail_url = old_url
       end
 
       it 'check availability of correct connection' do
-        expect(OnlyofficeTestrailWrapper::Testrail2.new).to be_available
+        expect(described_class.new).to be_available
       end
 
       it 'check non-availability of correct connection' do
-        OnlyofficeTestrailWrapper::Testrail2.testrail_url = 'www.ya.ru'
-        expect(OnlyofficeTestrailWrapper::Testrail2.new).not_to be_available
+        described_class.testrail_url = 'www.ya.ru'
+        expect(described_class.new).not_to be_available
       end
     end
   end

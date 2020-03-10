@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe OnlyofficeTestrailWrapper::TestrailHelperRspecMetadata do
-  include OnlyofficeTestrailWrapper::TestrailHelperRspecMetadata
+  include described_class
   it 'example_time_in_seconds cannot be zero' do
     example = OnlyofficeTestrailWrapper::RspecExampleMock.new
     example.metadata[:execution_result].started_at = Time.now

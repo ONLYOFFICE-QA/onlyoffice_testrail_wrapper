@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 describe OnlyofficeTestrailWrapper::TestrailHelper do
-  let(:helper) { OnlyofficeTestrailWrapper::TestrailHelper.new('Test Project', 'Test Suite', 'Test Plan') }
+  let(:helper) { described_class.new('Test Project', 'Test Suite', 'Test Plan') }
 
   describe 'TestrailHelper#add_result_to_test_case' do
     it 'Add test result with exception' do
