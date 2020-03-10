@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-describe OnlyofficeTestrailWrapper::TestrailHelperRspecMetadata do
-  include OnlyofficeTestrailWrapper::TestrailStatusHelper
+describe OnlyofficeTestrailWrapper::TestrailStatusHelper do
+  include described_class
   it 'check check_status_exist is work with correct data - symbol' do
     expect(check_status_exist(:passed)).to be_truthy
   end
