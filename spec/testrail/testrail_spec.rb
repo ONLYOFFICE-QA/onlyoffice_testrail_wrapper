@@ -3,8 +3,12 @@ require 'spec_helper'
 describe OnlyofficeTestrailWrapper::Testrail2 do
   old_url = nil
   describe 'Methods Tests' do
-    let(:project) { OnlyofficeTestrailWrapper::Testrail2.new.project('Canvas Document Editor Autotests') }
-    plan = 'ver. 5.0.5 (build:26)'
+    let(:project) { OnlyofficeTestrailWrapper::Testrail2.new.project('onlyoffice_testrail_wrapper ci tests') }
+
+    plan = 'ci plan'
+    existing_run = 'Existing Run'
+    nonexisting_run = 'existing_run'
+
     describe 'Tesrail Run' do
       it 'TestrailProject.plan' do
         expect(project.plan(plan)).to be_a(OnlyofficeTestrailWrapper::TestrailPlan)
@@ -16,15 +20,15 @@ describe OnlyofficeTestrailWrapper::Testrail2 do
       end
 
       it 'TestrailProject.plan.run' do
-        expect(project.plan(plan).run('All Formulas')).to be_a(OnlyofficeTestrailWrapper::TestrailRun)
+        expect(project.plan(plan).run(existing_run)).to be_a(OnlyofficeTestrailWrapper::TestrailRun)
       end
 
       it 'TestrailProject.plan.run unknown name' do
-        expect(project.plan(plan).run('non-existing')).to be_nil
+        expect(project.plan(plan).run(nonexisting_run)).to be_nil
       end
 
       it 'TestrailProject.plan.run.duration' do
-        run = project.plan(plan).run('[Version history] for Table Smoke Test')
+        run = project.plan(plan).run(existing_run)
         expect(run.duration).to be > 0.1
       end
     end
