@@ -12,10 +12,6 @@ describe OnlyofficeTestrailWrapper::TestrailHelperRspecMetadata do
     expect(check_status_exist([:passed])).to be_truthy
   end
 
-  it 'check check_status_exist is work with correct data - array with one symbol' do
-    expect(check_status_exist([:passed])).to be_truthy
-  end
-
   it 'check check_status_exist is work with correct data - array with many symbol' do
     expect(check_status_exist(%i[passed retest failed])).to be_truthy
   end
