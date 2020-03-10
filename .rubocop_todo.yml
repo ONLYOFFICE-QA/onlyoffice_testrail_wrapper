@@ -60,14 +60,6 @@ Style/Documentation:
     - 'lib/onlyoffice_testrail_wrapper/testrail_test.rb'
     - 'lib/onlyoffice_testrail_wrapper/testrail_tools/testrail_tools.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: ConvertCodeThatCanStartToReturnNil, AllowedMethods.
-# AllowedMethods: present?, blank?, presence, try, try!
-Style/SafeNavigation:
-  Exclude:
-    - 'lib/onlyoffice_testrail_wrapper/testrail_helper/testrail_helper_rspec_metadata.rb'
-
 # Offense count: 162
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
