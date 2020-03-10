@@ -16,8 +16,11 @@ describe OnlyofficeTestrailWrapper::Testrail2 do
         expect(project.plan(plan)).to be_a(OnlyofficeTestrailWrapper::TestrailPlan)
       end
 
-      it 'TestrailProject.runs' do
+      it 'TestrailProject.runs is array' do
         expect(project.plan(plan).runs).to be_a(Array)
+      end
+
+      it 'TestrailProject.runs' do
         expect(project.plan(plan).runs.first).to be_a(OnlyofficeTestrailWrapper::TestrailRun)
       end
 
