@@ -24,7 +24,6 @@ module OnlyofficeTestrailWrapper
       # TODO: Fix dependencies from other project
       return custom_fields if defined?(AppManager).nil?
 
-      custom_fields[:custom_js_error] = WebDriver.web_console_error unless WebDriver.web_console_error.nil?
       custom_fields[:elapsed] = example_time_in_seconds(example)
       custom_fields[:version] = version
       custom_fields[:custom_host] = SystemHelper.hostname
