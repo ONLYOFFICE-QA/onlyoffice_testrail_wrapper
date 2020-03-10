@@ -54,6 +54,10 @@ describe OnlyofficeTestrailWrapper::Testrail2 do
         old_url = OnlyofficeTestrailWrapper::Testrail2.testrail_url
       end
 
+      after do
+        OnlyofficeTestrailWrapper::Testrail2.testrail_url = old_url
+      end
+
       it 'check availability of correct connection' do
         expect(OnlyofficeTestrailWrapper::Testrail2.new).to be_available
       end
@@ -61,10 +65,6 @@ describe OnlyofficeTestrailWrapper::Testrail2 do
       it 'check non-availability of correct connection' do
         OnlyofficeTestrailWrapper::Testrail2.testrail_url = 'www.ya.ru'
         expect(OnlyofficeTestrailWrapper::Testrail2.new).not_to be_available
-      end
-
-      after do
-        OnlyofficeTestrailWrapper::Testrail2.testrail_url = old_url
       end
     end
   end

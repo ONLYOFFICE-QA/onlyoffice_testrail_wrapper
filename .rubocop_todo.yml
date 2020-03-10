@@ -79,12 +79,6 @@ RSpec/FilePath:
     - 'spec/testrail/testrail_status_helper_spec.rb'
     - 'spec/testrail/testrail_tools_spec.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-RSpec/HooksBeforeExamples:
-  Exclude:
-    - 'spec/testrail/testrail_spec.rb'
-
 # Offense count: 9
 Style/Documentation:
   Exclude:
