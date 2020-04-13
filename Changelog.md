@@ -11,6 +11,7 @@
 * Remove dependency of `activesupport`
 * Remove unused `custom_js_error` handler
 * Required ruby version is 2.3
+* Remove `net-ping` dependency
 
 ### Fixes
 * Fix problem with adding result to testrail if test took less than 1 second

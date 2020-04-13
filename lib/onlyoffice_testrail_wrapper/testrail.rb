@@ -5,7 +5,6 @@
 
 require 'net/http'
 require 'json'
-require 'net/ping'
 require 'yaml'
 require_relative 'testrail_project'
 
