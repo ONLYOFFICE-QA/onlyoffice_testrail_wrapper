@@ -12,6 +12,8 @@
 * Remove unused `custom_js_error` handler
 * Required ruby version is 2.3
 * Remove `net-ping` dependency
+* Extract `set_custom_exception` method from `testing-shared`
+  and rename it to `add_custom_exception`
 
 ### Fixes
 * Fix problem with adding result to testrail if test took less than 1 second

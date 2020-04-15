@@ -81,7 +81,7 @@ module OnlyofficeTestrailWrapper
           comment = "Test passed! #{comment}"
         end
         custom_fields[:defects] = bug_id.to_s
-        example.set_custom_exception(comment) if result == :failed
+        example.add_custom_exception(comment) if result == :failed
         result = :lpv if comment.downcase.include?('limited program version')
       elsif exception.to_s.include?('got:') || exception.to_s.include?('expected:')
         result = :failed
