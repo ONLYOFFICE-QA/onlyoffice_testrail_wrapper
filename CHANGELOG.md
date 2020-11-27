@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+### New Features
+
+* Increase `Suite` test coverage
+
 ## 0.1.0 (2020-11-27)
 
 ### New Features
