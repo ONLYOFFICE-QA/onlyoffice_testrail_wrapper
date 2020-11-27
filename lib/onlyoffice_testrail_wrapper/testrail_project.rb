@@ -149,7 +149,7 @@ module OnlyofficeTestrailWrapper
     end
 
     # Get all test runs of project
-    # @return [Array, TestRunTestrail] array of test runs
+    # @return [Array<Hash>] array of test runs
     def get_runs(filters = {})
       get_url = "index.php?/api/v2/get_runs/#{@id}"
       filters.each { |key, value| get_url += "&#{key}=#{value}" }
@@ -157,6 +157,19 @@ module OnlyofficeTestrailWrapper
       @runs_names = HashHelper.get_hash_from_array_with_two_parameters(runs, 'name', 'id') if @runs_names.empty?
       runs
     end
+
+    # Get all test runs of project as objects
+    # @param [Hash] filters to apply
+    # @return [Array<TestrailRun>] array of test runs
+    def runs(filters = {})
+      get_url = "index.php?/api/v2/get_runs/#{@id}"
+      filters.each { |key, value| get_url += "&#{key}=#{value}" }
+      runs = Testrail2.http_get(get_url)
+      runs.map { |suite| HashHelper.parse_to_class_variable(suite, TestrailRun) }
+    end
+
+    extend Gem::Deprecate
+    deprecate :get_runs, 'runs', 2069, 1
 
     # Get Test Run by it's name
     # @param [String] name name of test run
