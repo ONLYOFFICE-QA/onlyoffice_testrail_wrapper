@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onlyoffice_testrail_wrapper (0.0.1)
+    onlyoffice_testrail_wrapper (0.1.0)
       onlyoffice_bugzilla_helper (~> 0.1)
       onlyoffice_logger_helper (~> 1)
 
