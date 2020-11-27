@@ -32,7 +32,7 @@ describe OnlyofficeTestrailWrapper::Testrail2, '#run' do
     it 'Run can be closed (completed)' do
       run = project.create_new_run(run_name, suite.id)
       run.close
-      expect(project.get_run_by_name(run_name)).to be_truthy
+      expect(project.get_run_by_name(run_name).is_completed).to be_truthy
     end
   end
 end

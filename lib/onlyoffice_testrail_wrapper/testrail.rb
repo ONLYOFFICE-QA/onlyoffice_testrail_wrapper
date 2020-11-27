@@ -90,7 +90,7 @@ module OnlyofficeTestrailWrapper
       # @param [String] request_url to perform http get
       # @param [Hash] data_hash headers to add to post query
       # @return [Hash] Json with result data in hash form
-      def http_post(request_url, data_hash)
+      def http_post(request_url, data_hash = {})
         uri = URI get_testrail_address + request_url
         request = Net::HTTP::Post.new uri.request_uri
         request.body = data_hash.to_json

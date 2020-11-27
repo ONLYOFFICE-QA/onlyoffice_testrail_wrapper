@@ -49,6 +49,14 @@ module OnlyofficeTestrailWrapper
       nil
     end
 
+    # Close current plan
+    # @return [nil]
+    def close
+      Testrail2.http_post("index.php?/api/v2/close_plan/#{@id}")
+      OnlyofficeLoggerHelper.log("Closed plan: #{@name} with id #{@id}")
+      nil
+    end
+
     def tests_results
       run_results = {}
       @entries.each do |current_entrie|

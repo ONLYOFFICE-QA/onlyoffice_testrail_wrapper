@@ -10,6 +10,7 @@
 * `TestrailProject#runs` to get list of Runs
 * `TestrailProject#plans` to get list of Plans
 * `TestrailProject#plan_by_name` to get plan by name
+* `TestrailPlan#close` new method 
 
 ### Changes
 

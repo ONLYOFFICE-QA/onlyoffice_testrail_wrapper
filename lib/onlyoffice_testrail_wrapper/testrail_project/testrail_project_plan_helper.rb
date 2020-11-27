@@ -42,10 +42,7 @@ module OnlyofficeTestrailWrapper
     # @param [String] name of plan
     # @return [TestrailPlan, nil] result of plan search
     def plan_by_name(name)
-      result = plans.select { |plan| plan.name == name }
-      return nil if result.empty?
-
-      result
+      plans.find { |plan| plan.name == name }
     end
 
     # Get list of all TestPlans
