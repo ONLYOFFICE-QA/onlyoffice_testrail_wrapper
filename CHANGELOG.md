@@ -6,10 +6,12 @@
 
 * Increase `Suite`, `Run` test coverage
 * `TestrailRun#is_completed` accessor to check for closed runs
+* `TestrailProject#suites` to get list of Suites
 
 ### Changes
 
 * Do not send `codecov` info on non-CI runs
+* Deprecate `TestrailProject#get_suites`
 
 ## 0.1.0 (2020-11-27)
 
