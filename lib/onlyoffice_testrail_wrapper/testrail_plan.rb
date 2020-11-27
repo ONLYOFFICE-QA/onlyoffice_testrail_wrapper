@@ -18,6 +18,8 @@ module OnlyofficeTestrailWrapper
     attr_accessor :milestone_id
     # @return [True, False] Completed this test plan or not
     attr_accessor :is_completed
+    # @return [Integer] time since epoch on which plan created
+    attr_reader :created_on
     # @return [String] url to current test plan
     attr_reader :url
 

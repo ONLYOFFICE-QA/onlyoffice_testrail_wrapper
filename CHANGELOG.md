@@ -11,6 +11,7 @@
 * `TestrailProject#plans` to get list of Plans
 * `TestrailProject#plan_by_name` to get plan by name
 * `TestrailPlan#close` new method
+* Add `TestrailPlan#created_on` and `TestrailRun#created_on`
 
 ### Changes
 
