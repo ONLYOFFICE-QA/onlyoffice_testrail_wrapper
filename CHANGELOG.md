@@ -14,6 +14,7 @@
 * Do not send `codecov` info on non-CI runs
 * Deprecate `TestrailProject#get_suites`
 * Deprecate `TestrailProject#get_runs`
+* Minor refactor with module extraction
 
 ## 0.1.0 (2020-11-27)
 
