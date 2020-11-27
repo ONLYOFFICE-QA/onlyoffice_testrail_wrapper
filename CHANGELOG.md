@@ -6,6 +6,10 @@
 
 * Increase `Suite` test coverage
 
+### Changes
+
+* Do not send `codecov` info on non-CI runs
+
 ## 0.1.0 (2020-11-27)
 
 ### New Features
