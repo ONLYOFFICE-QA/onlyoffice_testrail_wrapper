@@ -106,12 +106,6 @@ Style/OptionalBooleanParameter:
     - 'lib/onlyoffice_testrail_wrapper/testrail_plan.rb'
     - 'lib/onlyoffice_testrail_wrapper/testrail_project.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantFileExtensionInRequire:
-  Exclude:
-    - 'lib/onlyoffice_testrail_wrapper.rb'
-
 # Offense count: 61
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
