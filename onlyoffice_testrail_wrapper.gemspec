@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ['ONLYOFFICE', 'Pavel Lobashov', 'Roman Zagudaev']
   s.summary = 'ONLYOFFICE Testrail Wrapper Gem'
   s.description = 'Wrapper for Testrail by OnlyOffice'
-  s.homepage = "https://github.com/onlyoffice-testing-robot/#{s.name}"
+  s.homepage = "https://github.com/ONLYOFFICE-QA/#{s.name}"
   s.metadata = {
     'bug_tracker_uri' => "#{s.homepage}/issues",
     'changelog_uri' => "#{s.homepage}/blob/master/CHANGELOG.md",

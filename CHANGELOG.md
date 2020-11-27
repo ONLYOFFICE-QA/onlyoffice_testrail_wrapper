@@ -25,6 +25,7 @@
 * Freeze exact gem dependencies version in `Gemfile.lock`
 * Drop support of `ruby < 2.5` since they EOL'ed
 * Move all dependencies in `gemspec`
+* Moved repo to `ONLYOFFICE-QA` org
 
 ### Fixes
 
