@@ -8,12 +8,14 @@
 * `TestrailRun#is_completed` accessor to check for closed runs
 * `TestrailProject#suites` to get list of Suites
 * `TestrailProject#runs` to get list of Runs
+* `TestrailProject#plans` to get list of Plans
 
 ### Changes
 
 * Do not send `codecov` info on non-CI runs
 * Deprecate `TestrailProject#get_suites`
 * Deprecate `TestrailProject#get_runs`
+* Deprecate `TestrailProject#get_plans`
 * Minor refactor with module extraction
 
 ## 0.1.0 (2020-11-27)

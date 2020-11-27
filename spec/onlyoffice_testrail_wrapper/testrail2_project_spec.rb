@@ -29,4 +29,12 @@ describe OnlyofficeTestrailWrapper::Testrail2, '#project' do
   it '#runs return list of TestrailRun objects' do
     expect(project.runs.first).to be_a(OnlyofficeTestrailWrapper::TestrailRun)
   end
+
+  it '#get_plans return list of hashes' do
+    expect(project.get_plans.first).to be_a(Hash)
+  end
+
+  it '#runs return list of TestrailPlan objects' do
+    expect(project.plans.first).to be_a(OnlyofficeTestrailWrapper::TestrailPlan)
+  end
 end

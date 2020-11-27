@@ -38,13 +38,26 @@ module OnlyofficeTestrailWrapper
 
     # Get list of all TestPlans
     # @param filters [Hash] filter conditions
-    # @return [Array, TestrailPlan] test plans
+    # @return [Array<Hash>] test plans
     def get_plans(filters = {})
       get_url = "index.php?/api/v2/get_plans/#{@id}"
       filters.each { |key, value| get_url += "&#{key}=#{value}" }
       plans = Testrail2.http_get(get_url)
       @plans_names = HashHelper.get_hash_from_array_with_two_parameters(plans, 'name', 'id') if @plans_names.empty?
       plans
+    end
+
+    extend Gem::Deprecate
+    deprecate :get_plans, 'plans', 2069, 1
+
+    # Get list of all TestPlans
+    # @param filters [Hash] filter conditions
+    # @return [Array<TestrailPlan>] test plans
+    def plans(filters = {})
+      get_url = "index.php?/api/v2/get_plans/#{@id}"
+      filters.each { |key, value| get_url += "&#{key}=#{value}" }
+      plans = Testrail2.http_get(get_url)
+      plans.map { |suite| HashHelper.parse_to_class_variable(suite, TestrailPlan) }
     end
 
     # @param [String] name of test plan
