@@ -4,7 +4,7 @@
 
 ### New Features
 
-* Increase `Suite` test coverage
+* Increase `Suite`, `Run` test coverage
 
 ### Changes
 
