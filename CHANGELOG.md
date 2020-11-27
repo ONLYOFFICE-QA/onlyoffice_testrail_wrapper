@@ -20,6 +20,10 @@
 * Deprecate `TestrailProject#get_plans`
 * Deprecate `TestrailProject#get_plan_by_name`
 * Minor refactor with module extraction
+* `TestrailTools.close_all_runs_older_than` and
+  `TestrailTools.close_all_plans_older_than` use newer methods
+* Remove unused `TestrailTools.close_run`
+* Remove unused `TestrailTools.get_incompleted_plan_entries`
 
 ## 0.1.0 (2020-11-27)
 

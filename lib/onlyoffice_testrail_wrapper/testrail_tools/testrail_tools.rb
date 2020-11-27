@@ -12,7 +12,6 @@ require_relative '../testrail'
 #
 #  Then call methods:
 #
-#  TestrailTools.close_run
 #  TestrailTools.close_all_runs
 #
 module OnlyofficeTestrailWrapper
@@ -38,31 +37,21 @@ module OnlyofficeTestrailWrapper
     def self.close_all_runs_older_than(time)
       check_config(__method__, :@project)
       loop do
-        old_runs = project.get_runs(is_completed: 0).reject { |e| e['created_on'] > time.to_i }
+        old_runs = project.runs(is_completed: 0).reject { |e| e.created_on > time.to_i }
         return if old_runs.empty?
 
-        old_runs.each { |run| Testrail2.http_post("index.php?/api/v2/close_run/#{run['id']}", {}) }
+        old_runs.each(&:close)
       end
     end
 
     def self.close_all_plans_older_than(time)
       check_config(__method__, :@project)
       loop do
-        old_plans = project.get_plans(is_completed: 0).reject { |e| e['created_on'] > time.to_i }
+        old_plans = project.plans(is_completed: 0).reject { |e| e.created_on > time.to_i }
         return if old_plans.empty?
 
-        old_plans.each { |run| Testrail2.http_post("index.php?/api/v2/close_plan/#{run['id']}", {}) }
+        old_plans.each(&:close)
       end
-    end
-
-    def self.close_run
-      check_config(__method__, :@project, :@run)
-      run.close
-    end
-
-    def self.get_incompleted_plan_entries
-      check_config(__method__, :@project, :@plan)
-      plan.entries.reject { |entry| entry.runs.first.untested_count.zero? }
     end
 
     def self.get_tests_report(status)
