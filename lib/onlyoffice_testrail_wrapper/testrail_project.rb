@@ -4,15 +4,19 @@ require_relative 'testrail_suite'
 require_relative 'testrail_run'
 require_relative 'testrail_plan'
 require_relative 'testrail_milestone'
+require_relative 'testrail_project/testrail_project_milestone_methods'
 require_relative 'testrail_project/testrail_project_plan_helper'
 require_relative 'testrail_project/testrail_project_runs_methods'
+require_relative 'testrail_project/testrail_project_suite_methods'
 
 module OnlyofficeTestrailWrapper
   # @author Roman.Zagudaev
   # Class for working with Test Projects
   class TestrailProject
+    include TestrailProjectMilestoneMethods
     include TestrailProjectPlanHelper
     include TestrailProjectRunMethods
+    include TestrailProjectSuiteMethods
     # @return [Integer] Id of project
     attr_accessor :id
     # @return [String] Name of project
@@ -68,118 +72,5 @@ module OnlyofficeTestrailWrapper
       OnlyofficeLoggerHelper.log "Deleted project: #{@name}"
       @testrail.projects_names.delete @name
     end
-
-    # region: SUITE
-
-    def suite(name_or_id)
-      case name_or_id.class.to_s
-      when 'Fixnum'
-        get_suite_by_id name_or_id
-      when 'String'
-        init_suite_by_name name_or_id
-      else
-        raise 'Wrong argument. Must be name [String] or id [Integer]'
-      end
-    end
-
-    # Get all test suites of project
-    # @return [Array<Hash>] array with suites data in hash
-    def get_suites
-      suites = Testrail2.http_get("index.php?/api/v2/get_suites/#{@id}")
-      @suites_names = HashHelper.get_hash_from_array_with_two_parameters(suites, 'name', 'id') if @suites_names.empty?
-      suites
-    end
-
-    extend Gem::Deprecate
-    deprecate :get_suites, 'suites', 2069, 1
-
-    # Get all test suites of project as objects
-    # @return [Array<TestrailSuite>] array with TestRailSuite
-    def suites
-      suites = Testrail2.http_get("index.php?/api/v2/get_suites/#{@id}")
-      suites.map { |suite| HashHelper.parse_to_class_variable(suite, TestrailSuite) }
-    end
-
-    # Get Test Suite by it's name
-    # @param [String] name name of test suite
-    # @return [TestrailSuite, nil] test suite or nil if not found
-    def get_suite_by_name(name)
-      get_suites if @suites_names.empty?
-      @suites_names[StringHelper.warnstrip!(name)].nil? ? nil : get_suite_by_id(@suites_names[name])
-    end
-
-    def get_suite_by_id(id)
-      suite = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_suite/#{id}"), TestrailSuite)
-      suite.instance_variable_set('@project', self)
-      OnlyofficeLoggerHelper.log("Initialized suite: #{suite.name}")
-      suite
-    end
-
-    # Init suite by it's name
-    # @param [String] name name of suit
-    # @return [TestrailSuite] suite with this name
-    def init_suite_by_name(name)
-      found_suite = get_suite_by_name name
-      found_suite.nil? ? create_new_suite(name) : found_suite
-    end
-
-    # Create new test suite in project
-    # @param [String] name of suite
-    # @param [String] description description of suite
-    # @return [TestrailSuite] created suite
-    def create_new_suite(name, description = '')
-      new_suite = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_suite/#{@id}", name: StringHelper.warnstrip!(name), description: description), TestrailSuite)
-      new_suite.instance_variable_set('@project', self)
-      OnlyofficeLoggerHelper.log "Created new suite: #{new_suite.name}"
-      @suites_names[new_suite.name] = new_suite.id
-      new_suite
-    end
-
-    # endregion
-
-    # region: MILESTONE
-
-    def milestone(name_or_id)
-      case name_or_id.class.to_s
-      when 'Fixnum'
-        get_milestone_by_id name_or_id
-      when 'String'
-        init_milestone_by_name name_or_id
-      else
-        raise 'Wrong argument. Must be name [String] or id [Integer]'
-      end
-    end
-
-    def init_milestone_by_name(name)
-      found_milestone = get_milestone_by_name name
-      found_milestone.nil? ? create_new_milestone(name) : found_milestone
-    end
-
-    def get_milestone_by_id(id)
-      milestone = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_milestone/#{id}"), TestrailMilestone)
-      OnlyofficeLoggerHelper.log("Initialized milestone: #{milestone.name}")
-      milestone
-    end
-
-    def get_milestone_by_name(name)
-      get_milestones if @milestones_names.empty?
-      @milestones_names[StringHelper.warnstrip!(name.to_s)].nil? ? nil : get_milestone_by_id(@milestones_names[name])
-    end
-
-    def get_milestones
-      milestones = Testrail2.http_get("index.php?/api/v2/get_milestones/#{@id}")
-      @milestones_names = HashHelper.get_hash_from_array_with_two_parameters(milestones, 'name', 'id') if @milestones_names.empty?
-      milestones
-    end
-
-    # @param [String] name of milestone
-    # @param [String] description of milestone
-    def create_new_milestone(name, description = '')
-      new_milestone = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_milestone/#{@id}", :name => StringHelper.warnstrip!(name.to_s), description => description), TestrailMilestone)
-      OnlyofficeLoggerHelper.log "Created new milestone: #{new_milestone.name}"
-      new_milestone
-    end
-
-    # endregion
   end
 end
