@@ -15,6 +15,7 @@
 * Extract `set_custom_exception` method from `testing-shared`
   and rename it to `add_custom_exception`
 * Extract `RspecHelper.find_failed_line` from `testing-shared`
+* Use GitHub Actions instead of TravisCI
 
 ### Fixes
 * Fix problem with adding result to testrail if test took less than 1 second
