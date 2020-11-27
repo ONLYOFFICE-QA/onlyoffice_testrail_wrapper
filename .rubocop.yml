@@ -9,3 +9,7 @@ inherit_from:
 AllCops:
   NewCops: enable
   TargetRubyVersion: 2.5
+
+# Used for variables like `:passed_2`
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
