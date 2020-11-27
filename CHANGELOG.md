@@ -5,6 +5,7 @@
 ### New Features
 
 * Add `markdownlint` check in CI
+* Add dev dependency of `rubocop-rake`
 
 ### Changes
 
@@ -21,6 +22,8 @@
 * Extract `RspecHelper.find_failed_line` from `testing-shared`
 * Use GitHub Actions instead of TravisCI
 * Freeze exact gem dependencies version in `Gemfile.lock`
+* Drop support of `ruby < 2.5` since they EOL'ed
+* Move all dependencies in `gemspec`
 
 ### Fixes
 
