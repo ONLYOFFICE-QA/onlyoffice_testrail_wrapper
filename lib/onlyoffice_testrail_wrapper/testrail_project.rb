@@ -81,7 +81,7 @@ module OnlyofficeTestrailWrapper
     end
 
     # Get all test suites of project
-    # @return [Array, Hash] array with suites data in hash
+    # @return [Array<Hash>] array with suites data in hash
     def get_suites
       suites = Testrail2.http_get("index.php?/api/v2/get_suites/#{@id}")
       @suites_names = HashHelper.get_hash_from_array_with_two_parameters(suites, 'name', 'id') if @suites_names.empty?
@@ -92,7 +92,7 @@ module OnlyofficeTestrailWrapper
     deprecate :get_suites, 'suites', 2069, 1
 
     # Get all test suites of project as objects
-    # @return [Array, TestrailSuite] array with TestRailSuite
+    # @return [Array<TestrailSuite>] array with TestRailSuite
     def suites
       suites = Testrail2.http_get("index.php?/api/v2/get_suites/#{@id}")
       suites.map { |suite| HashHelper.parse_to_class_variable(suite, TestrailSuite) }
