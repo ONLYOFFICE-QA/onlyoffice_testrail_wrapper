@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+### New Features
+
+* Add `markdownlint` check in CI
+
 ### Changes
 
 * Change method `get_tests_by_result` for working with array of statuses
