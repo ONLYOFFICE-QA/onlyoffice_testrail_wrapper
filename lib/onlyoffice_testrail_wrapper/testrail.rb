@@ -28,6 +28,7 @@ module OnlyofficeTestrailWrapper
     # @return [String] password for admin user
     @admin_pass = nil
 
+    # @return [Hash] project information
     attr_accessor :projects_names
 
     def initialize
@@ -36,7 +37,9 @@ module OnlyofficeTestrailWrapper
 
     class << self
       attr_accessor :testrail_url
+      # Attribute to write admin_user
       attr_writer :admin_user
+      # Attribute to write admin_pass
       attr_writer :admin_pass
       # @return [String] default config location
       CONFIG_LOCATION = "#{Dir.home}/.gem-onlyoffice_testrail_wrapper/config.yml"

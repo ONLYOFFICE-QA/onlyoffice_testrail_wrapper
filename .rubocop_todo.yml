@@ -72,16 +72,6 @@ RSpec/ExampleLength:
   Exclude:
     - 'spec/onlyoffice_testrail_wrapper/testrail_tools_spec.rb'
 
-# Offense count: 11
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: separated, grouped
-Style/AccessorGrouping:
-  Exclude:
-    - 'lib/onlyoffice_testrail_wrapper/mock/rspec_example_mock.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_project.rb'
-
 # Offense count: 8
 Style/Documentation:
   Exclude:

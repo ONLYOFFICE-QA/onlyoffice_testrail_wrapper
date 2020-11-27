@@ -25,10 +25,13 @@ module OnlyofficeTestrailWrapper
     attr_accessor :completed_on
     # @return [String] url to project
     attr_accessor :url
-
+    # @return [Array<String>] name of suites
     attr_accessor :suites_names
+    # @return [Array<String>] name of runs
     attr_accessor :runs_names
+    # @return [Array<String>] name of planes
     attr_accessor :plans_names
+    # @return [Array<String>] name of milestones
     attr_accessor :milestones_names
 
     # Default constructor

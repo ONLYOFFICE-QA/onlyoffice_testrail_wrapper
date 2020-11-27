@@ -17,10 +17,15 @@ module OnlyofficeTestrailWrapper
 
   # Mock Rspec example
   class RspecExampleMock
+    # @return [Object] object exception
     attr_accessor :exception
+    # @return [Object] backtrace object
     attr_accessor :backtrace
+    # @return [Hash] metadata
     attr_accessor :metadata
+    # @return [True, False] is test pending
     attr_accessor :pending
+    # @return [String] description of spec
     attr_accessor :description
 
     def initialize(description: 'MockDescription',
