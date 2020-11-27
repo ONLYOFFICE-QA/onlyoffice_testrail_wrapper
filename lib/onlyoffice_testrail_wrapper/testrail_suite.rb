@@ -39,7 +39,7 @@ module OnlyofficeTestrailWrapper
     # @param [String] description description of test run
     # @return [TestRunTestRail] created test run
     def start_test_run(name, description = '')
-      HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/add_run/' + @project_id.to_s, name: StringHelper.warnstrip!(name.to_s), description: description, suite_id: @id), TestrailRun)
+      HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_run/#{@project_id}", name: StringHelper.warnstrip!(name.to_s), description: description, suite_id: @id), TestrailRun)
     end
 
     def section(name_or_id = 'All Test Cases')
@@ -58,9 +58,9 @@ module OnlyofficeTestrailWrapper
     # @param [Integer] parent_section id of parent section, default = nil
     def create_new_section(name, parent_section = nil)
       parent_section = get_section_by_name(parent_section).id if parent_section.is_a?(String)
-      new_section = HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/add_section/' + @project_id.to_s, name: StringHelper.warnstrip!(name.to_s),
-                                                                                                                                parent_id: parent_section, suite_id: @id), TestrailSection)
-      OnlyofficeLoggerHelper.log 'Created new section: ' + new_section.name
+      new_section = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_section/#{@project_id}", name: StringHelper.warnstrip!(name.to_s),
+                                                                                                                           parent_id: parent_section, suite_id: @id), TestrailSection)
+      OnlyofficeLoggerHelper.log "Created new section: #{new_section.name}"
       @sections_names[new_section.name] = new_section.id
       new_section.instance_variable_set '@project_id', @project_id
       new_section.instance_variable_set '@suite', self
@@ -70,13 +70,13 @@ module OnlyofficeTestrailWrapper
     # Get all sections in test suite
     # @return [Array, TestrailSuite] array with sections
     def get_sections
-      sections = Testrail2.http_get('index.php?/api/v2/get_sections/' + @project_id.to_s + '&suite_id=' + @id.to_s)
+      sections = Testrail2.http_get("index.php?/api/v2/get_sections/#{@project_id}&suite_id=#{@id}")
       @sections_names = HashHelper.get_hash_from_array_with_two_parameters(sections, 'name', 'id') if @sections_names.nil?
       sections
     end
 
     def get_section_by_id(id)
-      section = HashHelper.parse_to_class_variable(Testrail2.http_get('index.php?/api/v2/get_section/' + id.to_s), TestrailSection)
+      section = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_section/#{id}"), TestrailSection)
       section.instance_variable_set '@project_id', @project_id
       section.instance_variable_set '@suite', self
       section
@@ -96,8 +96,8 @@ module OnlyofficeTestrailWrapper
     end
 
     def delete
-      Testrail2.http_post 'index.php?/api/v2/delete_suite/' + @id.to_s, {}
-      OnlyofficeLoggerHelper.log 'Deleted suite: ' + @name
+      Testrail2.http_post "index.php?/api/v2/delete_suite/#{@id}", {}
+      OnlyofficeLoggerHelper.log "Deleted suite: #{@name}"
       @project.suites_names.delete @name
       nil
     end
@@ -105,8 +105,8 @@ module OnlyofficeTestrailWrapper
     def update(name, description = nil)
       @project.suites_names.delete @name
       @project.suites_names[StringHelper.warnstrip!(name.to_s)] = @id
-      updated_suite = HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/update_suite/' + @id.to_s, name: name, description: description), TestrailSuite)
-      OnlyofficeLoggerHelper.log 'Updated suite: ' + updated_suite.name
+      updated_suite = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/update_suite/#{@id}", name: name, description: description), TestrailSuite)
+      OnlyofficeLoggerHelper.log "Updated suite: #{updated_suite.name}"
       updated_suite
     end
   end

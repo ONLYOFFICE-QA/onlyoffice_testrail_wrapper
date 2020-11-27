@@ -20,8 +20,8 @@ module OnlyofficeTestrailWrapper
     end
 
     def get_plan_by_id(id)
-      plan = HashHelper.parse_to_class_variable(Testrail2.http_get('index.php?/api/v2/get_plan/' + id.to_s), TestrailPlan)
-      OnlyofficeLoggerHelper.log('Initialized plan: ' + plan.name)
+      plan = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_plan/#{id}"), TestrailPlan)
+      OnlyofficeLoggerHelper.log("Initialized plan: #{plan.name}")
       plan.entries.each_with_index do |test_entry, index|
         entry = HashHelper.parse_to_class_variable(test_entry, TestrailPlanEntry)
         entry.runs.each_with_index { |run, i| entry.runs[i] = HashHelper.parse_to_class_variable(run, TestrailRun) }
@@ -51,9 +51,9 @@ module OnlyofficeTestrailWrapper
     # @param [String] description
     # @param [Integer] milestone_id
     def create_new_plan(name, entries = [], description = '', milestone_id = nil)
-      new_plan = HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/add_plan/' + @id.to_s, name: StringHelper.warnstrip!(name), description: description,
-                                                                                                                  milestone_id: milestone_id, entries: entries), TestrailPlan)
-      OnlyofficeLoggerHelper.log 'Created new plan: ' + new_plan.name
+      new_plan = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_plan/#{@id}", name: StringHelper.warnstrip!(name), description: description,
+                                                                                                             milestone_id: milestone_id, entries: entries), TestrailPlan)
+      OnlyofficeLoggerHelper.log "Created new plan: #{new_plan.name}"
       new_plan.entries.each_with_index do |entry, i|
         new_plan.entries[i] = HashHelper.parse_to_class_variable(entry, TestrailPlanEntry)
         new_plan.entries[i].runs.each_with_index { |run, j| new_plan.entries[i].runs[j] = HashHelper.parse_to_class_variable(run, TestrailRun) }

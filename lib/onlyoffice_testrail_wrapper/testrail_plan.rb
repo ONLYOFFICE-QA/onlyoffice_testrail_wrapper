@@ -30,20 +30,20 @@ module OnlyofficeTestrailWrapper
     end
 
     def add_entry(name, suite_id, include_all = true, case_ids = [], assigned_to = nil)
-      entry = HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/add_plan_entry/' + @id.to_s, suite_id: suite_id, name: StringHelper.warnstrip!(name.to_s),
-                                                                                                                     include_all: include_all, case_ids: case_ids, assigned_to: assigned_to), TestrailPlanEntry)
-      OnlyofficeLoggerHelper.log 'Added plan entry: ' + name.to_s.strip
+      entry = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_plan_entry/#{@id}", suite_id: suite_id, name: StringHelper.warnstrip!(name.to_s),
+                                                                                                                include_all: include_all, case_ids: case_ids, assigned_to: assigned_to), TestrailPlanEntry)
+      OnlyofficeLoggerHelper.log "Added plan entry: #{name.to_s.strip}"
       entry.runs.each_with_index { |run, index| entry.runs[index] = HashHelper.parse_to_class_variable(run, TestrailRun) }
       entry
     end
 
     def delete_entry(entry_id)
-      Testrail2.http_post 'index.php?/api/v2/delete_plan_entry/' + @id.to_s + '/' + entry_id.to_s, {}
+      Testrail2.http_post "index.php?/api/v2/delete_plan_entry/#{@id}/#{entry_id}", {}
     end
 
     def delete
-      Testrail2.http_post 'index.php?/api/v2/delete_plan/' + @id.to_s, {}
-      OnlyofficeLoggerHelper.log 'Deleted plan: ' + @name
+      Testrail2.http_post "index.php?/api/v2/delete_plan/#{@id}", {}
+      OnlyofficeLoggerHelper.log "Deleted plan: #{@name}"
       nil
     end
 

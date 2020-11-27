@@ -56,7 +56,7 @@ module OnlyofficeTestrailWrapper
         OnlyofficeLoggerHelper.log 'Do not add test result, because spec run in debug '
         return
       end
-      OnlyofficeLoggerHelper.log 'Begin scanning ' + @suite.name + ' suite for new cases' unless cases.is_a?(Array)
+      OnlyofficeLoggerHelper.log "Begin scanning #{@suite.name} suite for new cases" unless cases.is_a?(Array)
       section = @suite.section section_name.to_s
       existing_cases = section.get_cases.map { |test_case| test_case['title'] }
       cases.each { |case_name| section.create_new_case case_name.to_s unless existing_cases.include?(case_name) }
@@ -89,13 +89,13 @@ module OnlyofficeTestrailWrapper
         comment += "\n#{exception.to_s.gsub('got:', "got:\n").gsub('expected:', "expected:\n")}\nIn line:\n#{failed_line}"
       elsif exception.to_s.include?('to return') || exception.to_s.include?('expected')
         result = :failed
-        comment += "\n" + exception.to_s.gsub('to return ', "to return:\n").gsub(', got ', "\ngot:\n")
+        comment += "\n#{exception.to_s.gsub('to return ', "to return:\n").gsub(', got ', "\ngot:\n")}"
       elsif exception.to_s.include?('Service Unavailable')
         result = :service_unavailable
-        comment += "\n" + exception.to_s
+        comment += "\n#{exception}"
       elsif exception.to_s.include?('Limited program version')
         result = :lpv
-        comment += "\n" + exception.to_s
+        comment += "\n#{exception}"
       elsif exception.nil?
         result = if @last_case == example.description
                    :passed_2
@@ -107,7 +107,7 @@ module OnlyofficeTestrailWrapper
         comment += "\nOk"
       else
         result = :aborted
-        comment += "\n" + exception.to_s
+        comment += "\n#{exception}"
         custom_fields[:custom_autotest_error_line] = exception.backtrace.join("\n") unless exception.backtrace.nil?
       end
       @last_case = example.description
@@ -144,7 +144,7 @@ module OnlyofficeTestrailWrapper
     def init_run_in_plan(run_name)
       @plan.entries.each { |entry| @run = entry.runs.first if entry.name == run_name }
       @run = @plan.add_entry(run_name, @suite.id).runs.first if @run.nil?
-      OnlyofficeLoggerHelper.log('Initialized run: ' + @run.name)
+      OnlyofficeLoggerHelper.log("Initialized run: #{@run.name}")
     end
 
     def get_plan_name_by_substring(string)

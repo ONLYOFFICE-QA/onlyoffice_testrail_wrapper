@@ -41,7 +41,7 @@ module OnlyofficeTestrailWrapper
         old_runs = project.get_runs(is_completed: 0).reject { |e| e['created_on'] > time.to_i }
         return if old_runs.empty?
 
-        old_runs.each { |run| Testrail2.http_post('index.php?/api/v2/close_run/' + run['id'].to_s, {}) }
+        old_runs.each { |run| Testrail2.http_post("index.php?/api/v2/close_run/#{run['id']}", {}) }
       end
     end
 
@@ -51,7 +51,7 @@ module OnlyofficeTestrailWrapper
         old_plans = project.get_plans(is_completed: 0).reject { |e| e['created_on'] > time.to_i }
         return if old_plans.empty?
 
-        old_plans.each { |run| Testrail2.http_post('index.php?/api/v2/close_plan/' + run['id'].to_s, {}) }
+        old_plans.each { |run| Testrail2.http_post("index.php?/api/v2/close_plan/#{run['id']}", {}) }
       end
     end
 

@@ -112,25 +112,6 @@ Style/RedundantFileExtensionInRequire:
   Exclude:
     - 'lib/onlyoffice_testrail_wrapper.rb'
 
-# Offense count: 78
-# Cop supports --auto-correct.
-Style/StringConcatenation:
-  Exclude:
-    - 'lib/onlyoffice_testrail_wrapper/helpers/hash_helper.rb'
-    - 'lib/onlyoffice_testrail_wrapper/helpers/string_helper.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_case.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_helper.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_milestone.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_plan.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_project.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_project/testrail_project_plan_helper.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_run.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_section.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_suite.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_test.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_tools/testrail_tools.rb'
-
 # Offense count: 61
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.

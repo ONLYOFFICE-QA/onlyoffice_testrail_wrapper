@@ -46,7 +46,7 @@ module OnlyofficeTestrailWrapper
     end
 
     def get_case_by_id(id)
-      test_case = HashHelper.parse_to_class_variable(Testrail2.http_get('index.php?/api/v2/get_case/' + id.to_s), TestrailCase)
+      test_case = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_case/#{id}"), TestrailCase)
       test_case.instance_variable_set '@section', self
       test_case
     end
@@ -55,7 +55,7 @@ module OnlyofficeTestrailWrapper
     # @return [Array, TestCaseTestrail] array of test cases
     def get_cases
       # raise 'Project id is not identified' if @project_id.nil?
-      cases = Testrail2.http_get('index.php?/api/v2/get_cases/' + @project_id.to_s + '&suite_id=' + @suite_id.to_s + '&section_id=' + @id.to_s)
+      cases = Testrail2.http_get("index.php?/api/v2/get_cases/#{@project_id}&suite_id=#{@suite_id}&section_id=#{@id}")
       @cases_names = HashHelper.get_hash_from_array_with_two_parameters(cases, 'title', 'id') if @cases_names.nil?
       cases
     end
@@ -83,8 +83,8 @@ module OnlyofficeTestrailWrapper
     # @param [String] custom_steps steps to perform
     # @return [TestCaseTestrail] created test case
     def create_new_case(title, type_id = 3, priority_id = 4, custom_steps = '')
-      new_case = HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/add_case/' + @id.to_s, title: StringHelper.warnstrip!(title.to_s), type_id: type_id,
-                                                                                                                  priority_id: priority_id, custom_steps: custom_steps), TestrailCase)
+      new_case = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_case/#{@id}", title: StringHelper.warnstrip!(title.to_s), type_id: type_id,
+                                                                                                             priority_id: priority_id, custom_steps: custom_steps), TestrailCase)
       new_case.instance_variable_set('@section', self)
       OnlyofficeLoggerHelper.log "Created new case: #{new_case.title}"
       @cases_names[new_case.title] = new_case.id
@@ -94,15 +94,15 @@ module OnlyofficeTestrailWrapper
     def update(name = @name, parent_id = @parent_id)
       @suite.sections_names.delete @name
       @suite.sections_names[StringHelper.warnstrip!(name.to_s)] = @id
-      updated_section = HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/update_section/' + @id.to_s, name: name, parent_id: parent_id), TestrailSection)
-      OnlyofficeLoggerHelper.log 'Updated section: ' + updated_section.name
+      updated_section = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/update_section/#{@id}", name: name, parent_id: parent_id), TestrailSection)
+      OnlyofficeLoggerHelper.log "Updated section: #{updated_section.name}"
       updated_section
     end
 
     def delete
       @suite.sections_names.delete @name
-      Testrail2.http_post 'index.php?/api/v2/delete_section/' + @id.to_s, {}
-      OnlyofficeLoggerHelper.log 'Deleted section: ' + @name
+      Testrail2.http_post "index.php?/api/v2/delete_section/#{@id}", {}
+      OnlyofficeLoggerHelper.log "Deleted section: #{@name}"
       nil
     end
   end

@@ -13,7 +13,7 @@ module OnlyofficeTestrailWrapper
 
       def parse_to_class_variable(hash, class_name)
         object = class_name.new
-        hash.each { |key, value| object.instance_variable_set('@' + key.to_s, value) }
+        hash.each { |key, value| object.instance_variable_set("@#{key}", value) }
         object
       end
     end

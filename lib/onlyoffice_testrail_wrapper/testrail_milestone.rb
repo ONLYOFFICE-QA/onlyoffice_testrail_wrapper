@@ -12,12 +12,12 @@ module OnlyofficeTestrailWrapper
     end
 
     def update(is_completed = false, name = @name, description = @description)
-      HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/update_milestone/' + @id.to_s, name: name, description: description,
-                                                                                                               is_completed: is_completed), TestrailMilestone)
+      HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/update_milestone/#{@id}", name: name, description: description,
+                                                                                                          is_completed: is_completed), TestrailMilestone)
     end
 
     def delete
-      Testrail2.http_post 'index.php?/api/v2/delete_milestone/' + @id.to_s, {}
+      Testrail2.http_post "index.php?/api/v2/delete_milestone/#{@id}", {}
     end
   end
 end
