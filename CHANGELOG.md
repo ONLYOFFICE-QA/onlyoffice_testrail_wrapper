@@ -5,6 +5,7 @@
 ### New Features
 
 * Increase `Suite`, `Run` test coverage
+* `TestrailRun#is_completed` accessor to check for closed runs
 
 ### Changes
 

@@ -37,6 +37,8 @@ module OnlyofficeTestrailWrapper
     attr_accessor :tests_names
     # @return [Array] array of arrays of TestResults
     attr_accessor :test_results
+    # @return [True, False] is current run completed
+    attr_reader :is_completed
 
     # Default constructor
     # @param [Integer] id id of test, default = nil
