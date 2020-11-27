@@ -8,6 +8,7 @@
 * Add dev dependency of `rubocop-rake`
 * Add `rubocop` check in CI
 * Add `dependabot` config
+* Add `rake` task to release gem
 
 ### Changes
 
