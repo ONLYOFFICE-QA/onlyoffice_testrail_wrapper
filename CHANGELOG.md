@@ -9,6 +9,7 @@
 * `TestrailProject#suites` to get list of Suites
 * `TestrailProject#runs` to get list of Runs
 * `TestrailProject#plans` to get list of Plans
+* `TestrailProject#plan_by_name` to get plan by name
 
 ### Changes
 
@@ -16,6 +17,7 @@
 * Deprecate `TestrailProject#get_suites`
 * Deprecate `TestrailProject#get_runs`
 * Deprecate `TestrailProject#get_plans`
+* Deprecate `TestrailProject#get_plan_by_name`
 * Minor refactor with module extraction
 
 ## 0.1.0 (2020-11-27)

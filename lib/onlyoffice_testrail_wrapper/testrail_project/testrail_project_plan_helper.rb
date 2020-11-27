@@ -36,6 +36,18 @@ module OnlyofficeTestrailWrapper
       @plans_names[StringHelper.warnstrip!(name.to_s)].nil? ? nil : get_plan_by_id(@plans_names[name])
     end
 
+    extend Gem::Deprecate
+    deprecate :get_plan_by_name, 'plan_by_name', 2069, 1
+
+    # @param [String] name of plan
+    # @return [TestrailPlan, nil] result of plan search
+    def plan_by_name(name)
+      result = plans.select { |plan| plan.name == name }
+      return nil if result.empty?
+
+      result
+    end
+
     # Get list of all TestPlans
     # @param filters [Hash] filter conditions
     # @return [Array<Hash>] test plans

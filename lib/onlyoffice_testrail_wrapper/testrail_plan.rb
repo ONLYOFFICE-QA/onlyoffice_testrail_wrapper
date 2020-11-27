@@ -41,6 +41,8 @@ module OnlyofficeTestrailWrapper
       Testrail2.http_post "index.php?/api/v2/delete_plan_entry/#{@id}/#{entry_id}", {}
     end
 
+    # Delete current plan
+    # @return [nil]
     def delete
       Testrail2.http_post "index.php?/api/v2/delete_plan/#{@id}", {}
       OnlyofficeLoggerHelper.log "Deleted plan: #{@name}"
