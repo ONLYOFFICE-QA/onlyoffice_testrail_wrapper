@@ -20,6 +20,7 @@
   and rename it to `add_custom_exception`
 * Extract `RspecHelper.find_failed_line` from `testing-shared`
 * Use GitHub Actions instead of TravisCI
+* Freeze exact gem dependencies version in `Gemfile.lock`
 
 ### Fixes
 
