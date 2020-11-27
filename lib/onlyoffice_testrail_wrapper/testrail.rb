@@ -41,6 +41,7 @@ module OnlyofficeTestrailWrapper
       attr_writer :admin_user
       # Attribute to write admin_pass
       attr_writer :admin_pass
+
       # @return [String] default config location
       CONFIG_LOCATION = "#{Dir.home}/.gem-onlyoffice_testrail_wrapper/config.yml"
 
