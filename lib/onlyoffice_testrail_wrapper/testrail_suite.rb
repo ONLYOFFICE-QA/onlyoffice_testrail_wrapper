@@ -95,6 +95,8 @@ module OnlyofficeTestrailWrapper
       found_section.nil? ? create_new_section(name, parent_section) : found_section
     end
 
+    # Delete current test suite
+    # @return [nil]
     def delete
       Testrail2.http_post "index.php?/api/v2/delete_suite/#{@id}", {}
       OnlyofficeLoggerHelper.log "Deleted suite: #{@name}"

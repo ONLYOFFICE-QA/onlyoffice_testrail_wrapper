@@ -90,7 +90,7 @@ module OnlyofficeTestrailWrapper
 
     # Get Test Suite by it's name
     # @param [String] name name of test suite
-    # @return [TestrailSuite] test suite
+    # @return [TestrailSuite, nil] test suite or nil if not found
     def get_suite_by_name(name)
       get_suites if @suites_names.empty?
       @suites_names[StringHelper.warnstrip!(name)].nil? ? nil : get_suite_by_id(@suites_names[name])
@@ -112,8 +112,8 @@ module OnlyofficeTestrailWrapper
     end
 
     # Create new test suite in project
-    # @param [String] name name of suite
-    # @param [String] description description of suite (default = nil)
+    # @param [String] name of suite
+    # @param [String] description description of suite
     # @return [TestrailSuite] created suite
     def create_new_suite(name, description = '')
       new_suite = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_suite/#{@id}", name: StringHelper.warnstrip!(name), description: description), TestrailSuite)
