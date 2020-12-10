@@ -25,6 +25,7 @@
   `TestrailTools.close_all_plans_older_than` use newer methods
 * Remove unused `TestrailTools.close_run`
 * Remove unused `TestrailTools.get_incompleted_plan_entries`
+* Cleanup test runs and plans after spec run
 
 ## 0.1.0 (2020-11-27)
 

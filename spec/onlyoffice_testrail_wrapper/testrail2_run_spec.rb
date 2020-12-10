@@ -24,13 +24,17 @@ describe OnlyofficeTestrailWrapper::Testrail2, '#run' do
   end
 
   describe '#is_completed' do
+    let(:run) { project.create_new_run(run_name, suite.id) }
+
+    after do
+      run.delete
+    end
+
     it 'By default run is not closed' do
-      run = project.create_new_run(run_name, suite.id)
       expect(run.is_completed).to be_falsey
     end
 
     it 'Run can be closed (completed)' do
-      run = project.create_new_run(run_name, suite.id)
       run.close
       expect(project.get_run_by_name(run_name).is_completed).to be_truthy
     end
