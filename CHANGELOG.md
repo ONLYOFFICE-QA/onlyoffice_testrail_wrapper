@@ -14,7 +14,6 @@
 * Add `TestrailPlan#created_on` and `TestrailRun#created_on`
 * Add `TestrailHelper#close_old_project_runs` method
 * Add `TestrailHelper#get_old_project_runs` method
-* Add `TestrailHelper#close_run_by_id` method
 
 ### Changes
 
