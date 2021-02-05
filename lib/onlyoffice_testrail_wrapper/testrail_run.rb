@@ -68,8 +68,9 @@ module OnlyofficeTestrailWrapper
     end
 
     def close
+      OnlyofficeLoggerHelper.log("Starting to send command to close run: #{@name}")
       test_run = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/close_run/#{@id}", {}), TestrailRun)
-      OnlyofficeLoggerHelper.log "Closed run: #{@name}"
+      OnlyofficeLoggerHelper.log("Run is closed: #{@name}")
       test_run
     end
 
