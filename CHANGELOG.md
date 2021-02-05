@@ -13,7 +13,7 @@
 * `TestrailPlan#close` new method
 * Add `TestrailPlan#created_on` and `TestrailRun#created_on`
 * Add `TestrailHelper#close_old_project_runs` method
-* Add `TestrailHelper#get_old_project_runs` method
+* Add `TestrailProject#runs_older_than_days` method
 
 ### Changes
 

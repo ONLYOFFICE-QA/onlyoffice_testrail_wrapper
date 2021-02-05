@@ -65,5 +65,22 @@ module OnlyofficeTestrailWrapper
       @runs_names[new_run.name] = new_run.id
       new_run
     end
+
+    # Get list of runs which older than several days
+    # @param [Integer] days_old should pass to get this run
+    # @param [Boolean] not_closed - return only not_closed runs
+    # @return [Array<TestrailRun>] list of runs
+    def runs_older_than_days(days_old, not_closed: true)
+      closed_flag_digit = not_closed ? 0 : 1
+      OnlyofficeLoggerHelper.log("Getting runs for #{@name}, days old: #{days_old}")
+      unix_timestamp = Date.today.prev_day(days_old).to_time.to_i
+      get_runs(created_before: unix_timestamp, is_completed: closed_flag_digit).map do |r|
+        TestrailRun.new(r['name'],
+                        r['description'],
+                        r['suite_id'],
+                        r['id'],
+                        is_completed: r['is_completed'])
+      end
+    end
   end
 end

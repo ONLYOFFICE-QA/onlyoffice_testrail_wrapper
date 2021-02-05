@@ -46,14 +46,16 @@ module OnlyofficeTestrailWrapper
     # @param [Integer] id id of test, default = nil
     # @param [String] name name of test run, default = nil
     # @param [String] description description of test run
+    # @param [Hash] params all other params
     # @return [TestRunTestRail] new Test run
-    def initialize(name = '', description = '', suite_id = nil, id = nil)
+    def initialize(name = '', description = '', suite_id = nil, id = nil, params = {})
       @id = id
       @name = name
       @description = description
       @suite_id = suite_id
       @tests_names = {}
       @test_results = []
+      @is_completed = params[:is_completed]
     end
 
     # Get all incomplete test (With status 'Untested' or 'Rerun')
