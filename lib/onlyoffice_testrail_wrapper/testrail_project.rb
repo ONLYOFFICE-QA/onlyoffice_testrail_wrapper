@@ -4,6 +4,7 @@ require_relative 'testrail_suite'
 require_relative 'testrail_run'
 require_relative 'testrail_plan'
 require_relative 'testrail_milestone'
+require_relative 'testrail_project/project_cleanup'
 require_relative 'testrail_project/testrail_project_milestone_methods'
 require_relative 'testrail_project/testrail_project_plan_helper'
 require_relative 'testrail_project/testrail_project_runs_methods'
@@ -13,6 +14,7 @@ module OnlyofficeTestrailWrapper
   # @author Roman.Zagudaev
   # Class for working with Test Projects
   class TestrailProject
+    include ProjectCleanup
     include TestrailProjectMilestoneMethods
     include TestrailProjectPlanHelper
     include TestrailProjectRunMethods

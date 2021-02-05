@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'onlyoffice_bugzilla_helper'
-require_relative 'testrail_helper/testrail_cleanups_methods'
 require_relative 'testrail_helper/testrail_helper_rspec_metadata'
 require_relative 'testrail_helper/testrail_status_helper'
 require_relative 'testrail'
@@ -12,7 +11,6 @@ module OnlyofficeTestrailWrapper
   # Class with help methods with testrail
   class TestrailHelper
     include RubyHelper
-    include TestrailCleanupMethods
     include TestrailHelperRspecMetadata
     include TestrailStatusHelper
     attr_reader :project, :plan, :suite, :run
