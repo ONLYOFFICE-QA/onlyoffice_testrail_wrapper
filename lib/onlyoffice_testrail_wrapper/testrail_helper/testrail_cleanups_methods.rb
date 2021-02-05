@@ -10,10 +10,7 @@ module OnlyofficeTestrailWrapper
       OnlyofficeLoggerHelper.log("Going to close runs for #{@project.name}, days old: #{days_old}")
       runs = get_old_project_runs(days_old)
       OnlyofficeLoggerHelper.log("Old runs number: #{runs.size} for #{@project.name}, days old: #{days_old}")
-      runs.each do |run_id|
-        run = TestrailRun.new(nil, nil, nil, run_id)
-        run.close
-      end
+      runs.each(&:close)
     end
 
     # Get list of runs that some days old
@@ -22,7 +19,12 @@ module OnlyofficeTestrailWrapper
     def get_old_project_runs(days_old)
       OnlyofficeLoggerHelper.log("Getting runs for #{@project.name}, days old: #{days_old}")
       unix_timestamp = Date.today.prev_day(days_old).to_time.to_i
-      @project.get_runs(created_before: unix_timestamp, is_completed: 0).map { |r| r['id'] }
+      @project.get_runs(created_before: unix_timestamp, is_completed: 0).map do |r|
+        TestrailRun.new(r['name'],
+                        r['description'],
+                        nil,
+                        r['id'])
+      end
     end
   end
 end
