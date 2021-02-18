@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+## 0.2.0 (2021-02-18)
+
 ### New Features
 
 * Increase `Suite`, `Run` test coverage
