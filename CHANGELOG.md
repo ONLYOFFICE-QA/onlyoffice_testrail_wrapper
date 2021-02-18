@@ -14,6 +14,7 @@
 * Add `TestrailPlan#created_on` and `TestrailRun#created_on`
 * Add `TestrailProject#close_old_runs` method
 * Add `TestrailProject#runs_older_than_days` method
+* Add `ruby-3.0` to CI
 
 ### Changes
 
