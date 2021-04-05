@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+## 0.3.0 (2021-04-05)
+
 ### New Feature
 
 * Raise correct error if `TestrailProject#get_plan_by_id` get
