@@ -22,6 +22,8 @@ module OnlyofficeTestrailWrapper
     def get_plan_by_id(id)
       plan = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_plan/#{id}"), TestrailPlan)
       OnlyofficeLoggerHelper.log("Initialized plan: #{plan.name}")
+      raise("`get_plan_by_id(#{id})` return an error: `#{plan.error}`") if plan.error
+
       plan.entries.each_with_index do |test_entry, index|
         entry = HashHelper.parse_to_class_variable(test_entry, TestrailPlanEntry)
         entry.runs.each_with_index { |run, i| entry.runs[i] = HashHelper.parse_to_class_variable(run, TestrailRun) }

@@ -22,6 +22,8 @@ module OnlyofficeTestrailWrapper
     attr_reader :created_on
     # @return [String] url to current test plan
     attr_reader :url
+    # @return [String] error message if any happens
+    attr_reader :error
 
     def initialize(name = '', entries = [], description = '', milestone_id = nil, id = nil)
       @name = name
