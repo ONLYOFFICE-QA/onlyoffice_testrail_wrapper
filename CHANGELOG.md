@@ -8,6 +8,7 @@
 
 * Raise correct error if `TestrailProject#get_plan_by_id` get
   error in responce
+* Use new uploader for `codecov` instead of deprecated one
 
 ## 0.2.0 (2021-02-18)
 

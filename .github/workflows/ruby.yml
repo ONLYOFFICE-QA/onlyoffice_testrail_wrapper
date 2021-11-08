@@ -34,3 +34,6 @@ jobs:
           bundle exec rake
       - name: Check source files using `rubocop`
         run: rubocop
+      - uses: codecov/codecov-action@v2
+            with:
+              fail_ci_if_error: true
