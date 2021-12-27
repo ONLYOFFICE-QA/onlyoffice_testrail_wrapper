@@ -62,8 +62,8 @@ module OnlyofficeTestrailWrapper
                                                                                                                            parent_id: parent_section, suite_id: @id), TestrailSection)
       OnlyofficeLoggerHelper.log "Created new section: #{new_section.name}"
       @sections_names[new_section.name] = new_section.id
-      new_section.instance_variable_set '@project_id', @project_id
-      new_section.instance_variable_set '@suite', self
+      new_section.instance_variable_set :@project_id, @project_id
+      new_section.instance_variable_set :@suite, self
       new_section
     end
 
@@ -77,8 +77,8 @@ module OnlyofficeTestrailWrapper
 
     def get_section_by_id(id)
       section = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_section/#{id}"), TestrailSection)
-      section.instance_variable_set '@project_id', @project_id
-      section.instance_variable_set '@suite', self
+      section.instance_variable_set :@project_id, @project_id
+      section.instance_variable_set :@suite, self
       section
     end
 

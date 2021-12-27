@@ -42,7 +42,7 @@ module OnlyofficeTestrailWrapper
 
     def get_suite_by_id(id)
       suite = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_suite/#{id}"), TestrailSuite)
-      suite.instance_variable_set('@project', self)
+      suite.instance_variable_set(:@project, self)
       OnlyofficeLoggerHelper.log("Initialized suite: #{suite.name}")
       suite
     end
@@ -61,7 +61,7 @@ module OnlyofficeTestrailWrapper
     # @return [TestrailSuite] created suite
     def create_new_suite(name, description = '')
       new_suite = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_suite/#{@id}", name: StringHelper.warnstrip!(name), description: description), TestrailSuite)
-      new_suite.instance_variable_set('@project', self)
+      new_suite.instance_variable_set(:@project, self)
       OnlyofficeLoggerHelper.log "Created new suite: #{new_suite.name}"
       @suites_names[new_suite.name] = new_suite.id
       new_suite

@@ -47,7 +47,7 @@ module OnlyofficeTestrailWrapper
 
     def get_case_by_id(id)
       test_case = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_case/#{id}"), TestrailCase)
-      test_case.instance_variable_set '@section', self
+      test_case.instance_variable_set :@section, self
       test_case
     end
 
@@ -85,7 +85,7 @@ module OnlyofficeTestrailWrapper
     def create_new_case(title, type_id = 3, priority_id = 4, custom_steps = '')
       new_case = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_case/#{@id}", title: StringHelper.warnstrip!(title.to_s), type_id: type_id,
                                                                                                              priority_id: priority_id, custom_steps: custom_steps), TestrailCase)
-      new_case.instance_variable_set('@section', self)
+      new_case.instance_variable_set(:@section, self)
       OnlyofficeLoggerHelper.log "Created new case: #{new_case.title}"
       @cases_names[new_case.title] = new_case.id
       new_case

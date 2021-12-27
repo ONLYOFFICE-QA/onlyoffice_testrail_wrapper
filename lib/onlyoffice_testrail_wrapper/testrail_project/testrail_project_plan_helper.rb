@@ -29,7 +29,7 @@ module OnlyofficeTestrailWrapper
         entry.runs.each_with_index { |run, i| entry.runs[i] = HashHelper.parse_to_class_variable(run, TestrailRun) }
         plan.entries[index] = entry
       end
-      plan.instance_variable_set '@project', self
+      plan.instance_variable_set :@project, self
       plan
     end
 

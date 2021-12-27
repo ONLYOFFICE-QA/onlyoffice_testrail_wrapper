@@ -5,6 +5,7 @@
 ### Changes
 
 * Require `mfa` for releasing gem
+* Fixes from `rubocop-performance` v1.13.0
 
 ## 0.3.0 (2021-04-05)
 

@@ -48,7 +48,7 @@ module OnlyofficeTestrailWrapper
     def get_run_by_id(id)
       run = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_run/#{id}"), TestrailRun)
       OnlyofficeLoggerHelper.log("Initialized run: #{run.name}")
-      run.instance_variable_set('@project', self)
+      run.instance_variable_set(:@project, self)
       run
     end
 
@@ -61,7 +61,7 @@ module OnlyofficeTestrailWrapper
     def create_new_run(name, suite_id, description = '')
       new_run = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_run/#{@id}", name: StringHelper.warnstrip!(name), description: description, suite_id: suite_id), TestrailRun)
       OnlyofficeLoggerHelper.log "Created new run: #{new_run.name}"
-      new_run.instance_variable_set('@project', self)
+      new_run.instance_variable_set(:@project, self)
       @runs_names[new_run.name] = new_run.id
       new_run
     end
