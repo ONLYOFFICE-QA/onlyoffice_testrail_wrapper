@@ -2,10 +2,15 @@
 
 ## master (unreleased)
 
+### New Features
+
+* Add `ruby-3.1` in CI
+
 ### Changes
 
 * Require `mfa` for releasing gem
 * Fixes from `rubocop-performance` v1.13.0
+* Remove `ruby-2.5` from CI since it's EOLed
 
 ## 0.3.0 (2021-04-05)
 
