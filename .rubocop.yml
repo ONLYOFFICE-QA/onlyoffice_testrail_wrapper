@@ -4,7 +4,7 @@ require:
   - rubocop-rspec
 
 inherit_from:
-    - .rubocop_todo.yml
+  - .rubocop_todo.yml
 
 AllCops:
   NewCops: enable
