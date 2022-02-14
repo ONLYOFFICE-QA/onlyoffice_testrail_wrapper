@@ -15,6 +15,7 @@
 * Require `mfa` for releasing gem
 * Fixes from `rubocop-performance` v1.13.0
 * Remove `ruby-2.5` from CI since it's EOLed
+* Remove `codeclimate` support since we don't use it any more
 
 ## 0.3.0 (2021-04-05)
 
