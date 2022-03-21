@@ -5,7 +5,7 @@ module OnlyofficeTestrailWrapper
   module TestrailProjectSuiteMethods
     def suite(name_or_id)
       case name_or_id.class.to_s
-      when 'Fixnum'
+      when 'Fixnum', 'Integer'
         get_suite_by_id name_or_id
       when 'String'
         init_suite_by_name name_or_id
