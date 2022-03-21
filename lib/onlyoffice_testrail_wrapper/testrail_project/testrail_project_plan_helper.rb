@@ -5,7 +5,7 @@ module OnlyofficeTestrailWrapper
   module TestrailProjectPlanHelper
     def plan(name_or_id)
       case name_or_id.class.to_s
-      when 'Fixnum'
+      when 'Fixnum', 'Integer'
         get_plan_by_id name_or_id
       when 'String'
         init_plan_by_name name_or_id

@@ -12,6 +12,16 @@ describe OnlyofficeTestrailWrapper::Testrail2, '#plan' do
     plan.delete
   end
 
+  it 'Plan can be accessed via id' do
+    plan = project.create_new_plan(plan_name)
+    expect(project.plan(plan.id)).to be_a(OnlyofficeTestrailWrapper::TestrailPlan)
+    plan.delete
+  end
+
+  it 'Getting plan by not id or string will raise an error' do
+    expect { project.plan(Object.new) }.to raise_error(RuntimeError, /Wrong argument/)
+  end
+
   it 'Plan can be deleted' do
     plan = project.create_new_plan(plan_name)
     plan.delete
