@@ -3,6 +3,7 @@
 require_relative 'testrail_result'
 
 module OnlyofficeTestrailWrapper
+  # Class for working with single testrail case
   class TestrailTest
     # @return [Integer] test id
     attr_accessor :id
@@ -24,6 +25,8 @@ module OnlyofficeTestrailWrapper
       @run_id = run_id
     end
 
+    # Get all results of single test
+    # @return [Array<TestrailResult>] list of results
     def get_results
       @results.nil? ? @results = Testrail2.http_get("index.php?/api/v2/get_results/#{@id}") : (return @results)
       @results.each_with_index { |result, index| @results[index] = HashHelper.parse_to_class_variable(result, TestrailResult) }
