@@ -28,6 +28,15 @@ describe OnlyofficeTestrailWrapper::TestrailProject, '#milestones' do
     expect(project.milestone(data.id)).to be_a(OnlyofficeTestrailWrapper::TestrailMilestone)
   end
 
+  it 'milestone can change its name via update' do
+    new_name = 'milestone_new_name'
+    milestone = project.milestone(milestone_name)
+    milestone.update(false, new_name)
+    after_change = project.milestone(new_name)
+    expect(after_change).to be_a(OnlyofficeTestrailWrapper::TestrailMilestone)
+    after_change.delete
+  end
+
   it 'Getting milestone by not id or string will raise an error' do
     expect { project.milestone(Object.new) }.to raise_error(RuntimeError, /Wrong argument/)
   end
