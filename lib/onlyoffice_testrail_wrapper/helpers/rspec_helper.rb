@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'onlyoffice_file_helper'
+
 module OnlyofficeTestrailWrapper
   # Methods to some rspec methods
   module RspecHelper

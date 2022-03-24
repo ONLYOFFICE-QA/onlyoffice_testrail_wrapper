@@ -6,6 +6,7 @@
 
 * Add `ruby-3.1` in CI
 * Add `yamllint` check in CI
+* Add missing dependency of `onlyoffice_file_helper`
 
 ### Fixes
 

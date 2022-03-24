@@ -3,6 +3,7 @@ PATH
   specs:
     onlyoffice_testrail_wrapper (0.3.0)
       onlyoffice_bugzilla_helper (~> 0.1)
+      onlyoffice_file_helper (~> 0)
       onlyoffice_logger_helper (~> 1)
 
 GEM
@@ -14,6 +15,9 @@ GEM
     docile (1.4.0)
     iniparse (1.5.0)
     onlyoffice_bugzilla_helper (0.6.1)
+    onlyoffice_file_helper (0.5.0)
+      onlyoffice_logger_helper (~> 1)
+      rubyzip (~> 2)
     onlyoffice_logger_helper (1.2.0)
     overcommit (0.58.0)
       childprocess (>= 0.6.3, < 5)
@@ -58,6 +62,7 @@ GEM
     rubocop-rspec (2.9.0)
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
+    rubyzip (2.3.2)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
