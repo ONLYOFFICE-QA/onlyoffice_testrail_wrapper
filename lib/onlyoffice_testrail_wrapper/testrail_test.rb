@@ -30,11 +30,17 @@ module OnlyofficeTestrailWrapper
       @results
     end
 
-    def add_result(result, comment = '', version = '')
-      result = TestrailResult::RESULT_STATUSES[result] if result.is_a?(Symbol)
-      HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_result/#{@id}", status_id: result,
-                                                                                                    comment: comment, version: version), TestrailResult)
-      OnlyofficeLoggerHelper.log "Set test result: #{result}"
+    # Add result to current Test
+    # @param [Integer, Symbol] status of result
+    # @param [String] comment of result
+    # @param [String] version of result
+    # @return [TestrailResult] result of adding
+    def add_result(status, comment = '', version = '')
+      status = TestrailResult::RESULT_STATUSES[status] if status.is_a?(Symbol)
+      result = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_result/#{@id}", status_id: status,
+                                                                                                             comment: comment, version: version), TestrailResult)
+      OnlyofficeLoggerHelper.log "Set test result: #{status}"
+      result
     end
   end
 end
