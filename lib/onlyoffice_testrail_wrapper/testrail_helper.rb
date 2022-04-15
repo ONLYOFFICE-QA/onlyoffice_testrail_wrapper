@@ -14,7 +14,7 @@ module OnlyofficeTestrailWrapper
     include TestrailHelperRspecMetadata
     include TestrailStatusHelper
     attr_reader :project, :plan, :suite, :run
-    attr_accessor :add_all_suites, :ignore_parameters, :suites_to_add, :search_plan_by_substring, :in_debug, :version
+    attr_accessor :add_all_suites, :suites_to_add, :search_plan_by_substring, :in_debug, :version
 
     def initialize(project_name, suite_name = nil, plan_name = nil, run_name = nil)
       @in_debug = debug?
@@ -71,10 +71,7 @@ module OnlyofficeTestrailWrapper
       end
       exception = example.exception
       custom_fields = init_custom_fields(example)
-      if @ignore_parameters && (ignored_hash = ignore_case?(example.metadata))
-        comment += "\nTest ignored by #{ignored_hash}"
-        result = :blocked
-      elsif example.pending
+      if example.pending
         result, comment, bug_id = parse_pending_comment(example.execution_result.pending_message)
         if example.exception.to_s == 'Expected example to fail since it is pending, but it passed.'
           result = :failed
@@ -157,13 +154,6 @@ module OnlyofficeTestrailWrapper
       @project.get_suites
       @project.suites_names.each_key { |key| @suites << key }
       @suites.sort!
-    end
-
-    def ignore_case?(example_metadata)
-      raise 'Ignore parameters must be Hash!!' unless @ignore_parameters.instance_of?(Hash)
-
-      @ignore_parameters.each { |key, value| return { key => value } if example_metadata[key] == value }
-      false
     end
 
     def suites_to_add_hash(suites_names)
