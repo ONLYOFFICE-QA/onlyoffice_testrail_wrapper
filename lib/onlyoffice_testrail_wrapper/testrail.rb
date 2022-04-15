@@ -20,7 +20,7 @@ module OnlyofficeTestrailWrapper
   #  current_test.add_result(Testrail2::TEST_RESULT_OK, 'description','version')
   #  incomplete_test = test_run_from_api.get_incomplete_tests()
   # end1
-  class Testrail2
+  class Testrail2 < TestrailApiObject
     # @return [String] address of testrail
     @testrail_url = nil
     # @return [String] login for admin user
@@ -32,6 +32,7 @@ module OnlyofficeTestrailWrapper
     attr_accessor :projects_names
 
     def initialize
+      super()
       @projects_names = {}
     end
 
