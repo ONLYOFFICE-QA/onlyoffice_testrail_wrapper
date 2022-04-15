@@ -122,10 +122,6 @@ module OnlyofficeTestrailWrapper
       @run.get_tests.map { |test| test['title'] if result.include?(TestrailResult::RESULT_STATUSES.key(test['status_id'])) }.compact
     end
 
-    def delete_plan(plan_name)
-      @project.plan(get_plan_name_by_substring(plan_name.to_s)).delete
-    end
-
     private
 
     def init_run_in_plan(run_name)
