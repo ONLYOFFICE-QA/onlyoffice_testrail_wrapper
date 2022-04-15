@@ -129,11 +129,6 @@ module OnlyofficeTestrailWrapper
       OnlyofficeLoggerHelper.log("Initialized run: #{@run.name}")
     end
 
-    def get_plan_name_by_substring(string)
-      @project.get_plans.each { |plan| return plan['name'] if plan['name'].include?(string) }
-      string
-    end
-
     def all_suites_names
       @suites ? (return @suites) : @suites = []
       @project.get_suites
