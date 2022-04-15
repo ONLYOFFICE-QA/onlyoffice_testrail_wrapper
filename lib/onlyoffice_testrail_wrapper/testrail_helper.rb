@@ -14,7 +14,7 @@ module OnlyofficeTestrailWrapper
     include TestrailHelperRspecMetadata
     include TestrailStatusHelper
     attr_reader :project, :plan, :suite, :run
-    attr_accessor :add_all_suites, :suites_to_add, :search_plan_by_substring, :in_debug, :version
+    attr_accessor :add_all_suites, :suites_to_add, :in_debug, :version
 
     def initialize(project_name, suite_name = nil, plan_name = nil, run_name = nil)
       @in_debug = debug?
@@ -31,11 +31,10 @@ module OnlyofficeTestrailWrapper
       OnlyofficeLoggerHelper.log 'Begin initializing Testrail...'
       @suites_to_add = []
       @add_all_suites = true
-      @search_plan_by_substring = false
       yield(self) if block_given?
       @project = Testrail2.new.project project_name.to_s.dup
       if plan_name
-        @plan = @project.get_plan_by_name(search_plan_by_substring ? get_plan_name_by_substring(plan_name.to_s) : plan_name.to_s)
+        @plan = @project.get_plan_by_name(plan_name.to_s)
         @plan ||= @project.create_new_plan(plan_name, suites_to_add_hash(@add_all_suites ? all_suites_names : @suites_to_add))
       end
       return if suite_name.nil?

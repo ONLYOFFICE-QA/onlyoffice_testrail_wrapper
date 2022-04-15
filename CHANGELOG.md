@@ -27,7 +27,8 @@
 * Remove unused `TestrailHelper#ignored_parameters`,
   `TestrailHelper#add_result_by_case_name`,
   `TestrailHelper#mark_rest_environment_dependencies`,
-  `TestrailHelper#delete_plan`
+  `TestrailHelper#delete_plan`,
+  `TestrailHelper#search_plan_by_substring`
 
 ## 0.3.0 (2021-04-05)
 
