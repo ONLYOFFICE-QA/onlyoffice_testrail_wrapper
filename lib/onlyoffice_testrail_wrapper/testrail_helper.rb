@@ -111,10 +111,6 @@ module OnlyofficeTestrailWrapper
       @suite.section(section_name).case(example.description).add_result @run.id, result, comment, custom_fields
     end
 
-    def add_result_by_case_name(name, result, comment = 'ok', section_name = 'All Test Cases')
-      @suite.section(section_name).case(name.to_s).add_result(@run.id, result, comment)
-    end
-
     def get_incomplete_tests
       @run.get_tests.map { |test| test['title'] if test['status_id'] == 3 || test['status_id'] == 4 }.compact
     end
@@ -128,12 +124,6 @@ module OnlyofficeTestrailWrapper
 
     def delete_plan(plan_name)
       @project.plan(get_plan_name_by_substring(plan_name.to_s)).delete
-    end
-
-    def mark_rest_environment_dependencies(supported_test_list, status_to_mark = :lpv)
-      get_incomplete_tests.each do |current_test|
-        add_result_by_case_name(current_test, status_to_mark, 'Not supported on this test environment') unless supported_test_list.include?(current_test)
-      end
     end
 
     private
