@@ -20,6 +20,7 @@
 * Remove `codeclimate` support since we don't use it any more
 * Check `dependabot` at 8:00 Moscow time daily
 * Increase test coverage
+* Refactor `get_suite_by_name` to use `suites` method
 
 ## 0.3.0 (2021-04-05)
 

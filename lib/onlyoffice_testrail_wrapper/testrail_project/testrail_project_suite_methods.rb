@@ -36,7 +36,7 @@ module OnlyofficeTestrailWrapper
     # @param [String] name name of test suite
     # @return [TestrailSuite, nil] test suite or nil if not found
     def get_suite_by_name(name)
-      get_suites if @suites_names.empty?
+      @suites_names = suites.map(&:name) if @suites_names.empty?
       @suites_names[StringHelper.warnstrip!(name)].nil? ? nil : get_suite_by_id(@suites_names[name])
     end
 
