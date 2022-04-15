@@ -2,7 +2,6 @@
 
 require 'onlyoffice_bugzilla_helper'
 require_relative 'testrail_helper/testrail_helper_rspec_metadata'
-require_relative 'testrail_helper/testrail_status_helper'
 require_relative 'testrail'
 require_relative 'helpers/ruby_helper'
 require_relative 'helpers/system_helper'
@@ -12,7 +11,6 @@ module OnlyofficeTestrailWrapper
   class TestrailHelper
     include RubyHelper
     include TestrailHelperRspecMetadata
-    include TestrailStatusHelper
     attr_reader :project, :plan, :suite, :run
     attr_accessor :add_all_suites, :suites_to_add, :in_debug, :version
 
@@ -112,13 +110,6 @@ module OnlyofficeTestrailWrapper
 
     def get_incomplete_tests
       @run.get_tests.map { |test| test['title'] if test['status_id'] == 3 || test['status_id'] == 4 }.compact
-    end
-
-    # @param [Array] result. Example: [:retest, :passed]
-    def get_tests_by_result(result)
-      check_status_exist(result)
-      result = [result] unless result.is_a?(Array)
-      @run.get_tests.map { |test| test['title'] if result.include?(TestrailResult::RESULT_STATUSES.key(test['status_id'])) }.compact
     end
 
     private

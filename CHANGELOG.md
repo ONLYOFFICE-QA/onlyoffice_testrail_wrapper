@@ -29,7 +29,9 @@
   `TestrailHelper#mark_rest_environment_dependencies`,
   `TestrailHelper#delete_plan`,
   `TestrailHelper#search_plan_by_substring`,
-  `TestrailHelper#get_plan_name_by_substring`
+  `TestrailHelper#get_plan_name_by_substring`,
+  `TestrailHelper#get_tests_by_result`
+  `TestrailStatusHelper#check_status_exist`
 
 ## 0.3.0 (2021-04-05)
 
