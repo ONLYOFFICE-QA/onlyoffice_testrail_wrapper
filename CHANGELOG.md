@@ -22,6 +22,8 @@
 * Increase test coverage
 * Replace usage of `parse_to_class_variable` with `init_from_hash`
 * `--fail-fast` option for rspec by default
+* Replace usage of `HashHelper.get_hash_from_array_with_two_parameters`
+  with `TestrailApiObject#name_id_pairs`
 
 ## 0.3.0 (2021-04-05)
 

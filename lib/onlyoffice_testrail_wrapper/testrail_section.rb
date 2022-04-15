@@ -57,7 +57,7 @@ module OnlyofficeTestrailWrapper
     def get_cases
       # raise 'Project id is not identified' if @project_id.nil?
       cases = Testrail2.http_get("index.php?/api/v2/get_cases/#{@project_id}&suite_id=#{@suite_id}&section_id=#{@id}")
-      @cases_names = HashHelper.get_hash_from_array_with_two_parameters(cases, 'title', 'id') if @cases_names.nil?
+      @cases_names = name_id_pairs(cases, 'title') if @cases_names.nil?
       cases
     end
 

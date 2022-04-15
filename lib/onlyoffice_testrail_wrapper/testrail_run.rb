@@ -96,7 +96,7 @@ module OnlyofficeTestrailWrapper
     # @return [Array, TestCaseTestrail] array of test cases
     def get_tests
       tests = Testrail2.http_get "index.php?/api/v2/get_tests/#{@id}"
-      @tests_names = HashHelper.get_hash_from_array_with_two_parameters(tests, 'title', 'id') if @tests_names.empty?
+      @tests_names = name_id_pairs(tests, 'title') if @tests_names.empty?
       tests
     end
 
