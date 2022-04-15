@@ -20,7 +20,7 @@ module OnlyofficeTestrailWrapper
       get_url = "index.php?/api/v2/get_runs/#{@id}"
       filters.each { |key, value| get_url += "&#{key}=#{value}" }
       runs = Testrail2.http_get(get_url)
-      @runs_names = name_id_pairs(runs, 'name') if @runs_names.empty?
+      @runs_names = name_id_pairs(runs) if @runs_names.empty?
       runs
     end
 

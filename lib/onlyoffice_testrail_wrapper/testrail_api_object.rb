@@ -15,7 +15,7 @@ module OnlyofficeTestrailWrapper
     # @param [Array<Hash>] array of raw data
     # @param [String, Symbol] name_key how name key is called in hash
     # @return [Hash] result hash data
-    def name_id_pairs(array, name_key)
+    def name_id_pairs(array, name_key = 'name')
       raise 'First argument must be Array!' unless array.is_a?(Array)
 
       result_hash = {}

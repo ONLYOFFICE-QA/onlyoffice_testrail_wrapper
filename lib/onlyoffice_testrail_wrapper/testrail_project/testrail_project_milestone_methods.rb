@@ -47,7 +47,7 @@ module OnlyofficeTestrailWrapper
     # @return [Array<TestrailMilestone>] list of all milestones
     def get_milestones
       milestones = Testrail2.http_get("index.php?/api/v2/get_milestones/#{@id}")
-      @milestones_names = name_id_pairs(milestones, 'name') if @milestones_names.empty?
+      @milestones_names = name_id_pairs(milestones) if @milestones_names.empty?
       milestones
     end
 
