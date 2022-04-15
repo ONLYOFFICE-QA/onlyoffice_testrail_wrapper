@@ -38,6 +38,7 @@ module OnlyofficeTestrailWrapper
     def get_suite_by_name(name)
       cached_suites = suites
       @suites_names = cached_suites.map(&:name)
+      StringHelper.warnstrip!(name)
       return nil unless @suites_names.include?(name)
 
       cached_suites.find { |suite| suite.name == name }
