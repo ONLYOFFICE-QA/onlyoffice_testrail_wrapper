@@ -40,7 +40,10 @@ module OnlyofficeTestrailWrapper
     # @param [String] description description of test run
     # @return [TestRunTestRail] created test run
     def start_test_run(name, description = '')
-      TestrailRun.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/add_run/#{@project_id}", name: StringHelper.warnstrip!(name.to_s), description: description, suite_id: @id))
+      TestrailRun.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/add_run/#{@project_id}",
+                                                         name: StringHelper.warnstrip!(name.to_s),
+                                                         description: description,
+                                                         suite_id: @id))
     end
 
     def section(name_or_id = 'All Test Cases')
