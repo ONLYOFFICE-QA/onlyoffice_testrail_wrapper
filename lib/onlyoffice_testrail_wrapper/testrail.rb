@@ -123,8 +123,10 @@ module OnlyofficeTestrailWrapper
     end
 
     def create_new_project(name, announcement = '', show_announcement = true)
-      new_project = HashHelper.parse_to_class_variable(Testrail2.http_post('index.php?/api/v2/add_project', name: StringHelper.warnstrip!(name.to_s), announcement: announcement,
-                                                                                                            show_announcement: show_announcement), TestrailProject)
+      new_project = TestrailProject.new.init_from_hash(Testrail2.http_post('index.php?/api/v2/add_project',
+                                                                           name: StringHelper.warnstrip!(name.to_s),
+                                                                           announcement: announcement,
+                                                                           show_announcement: show_announcement))
       OnlyofficeLoggerHelper.log "Created new project: #{new_project.name}"
       new_project.instance_variable_set(:@testrail, self)
       @projects_names[new_project.name] = new_project.id
@@ -142,7 +144,7 @@ module OnlyofficeTestrailWrapper
     # Get all projects on testrail
     # @return [Array, ProjectTestrail] array of projects
     def get_project_by_id(id)
-      project = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_project/#{id}"), TestrailProject)
+      project = TestrailProject.new.init_from_hash(Testrail2.http_get("index.php?/api/v2/get_project/#{id}"))
       OnlyofficeLoggerHelper.log("Initialized project: #{project.name}")
       project.instance_variable_set(:@testrail, self)
       project

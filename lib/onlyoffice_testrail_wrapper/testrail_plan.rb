@@ -3,7 +3,7 @@
 require_relative 'testrail_plan_entry'
 
 module OnlyofficeTestrailWrapper
-  class TestrailPlan
+  class TestrailPlan < TestrailApiObject
     # @return [Integer] Id of test plan
     attr_accessor :id
     # @return [String] test run name
@@ -26,6 +26,7 @@ module OnlyofficeTestrailWrapper
     attr_reader :error
 
     def initialize(name = '', entries = [], description = '', milestone_id = nil, id = nil)
+      super()
       @name = name
       @entries = entries
       @description = description
@@ -34,10 +35,14 @@ module OnlyofficeTestrailWrapper
     end
 
     def add_entry(name, suite_id, include_all = true, case_ids = [], assigned_to = nil)
-      entry = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_plan_entry/#{@id}", suite_id: suite_id, name: StringHelper.warnstrip!(name.to_s),
-                                                                                                                include_all: include_all, case_ids: case_ids, assigned_to: assigned_to), TestrailPlanEntry)
+      entry = TestrailPlanEntry.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/add_plan_entry/#{@id}",
+                                                                       suite_id: suite_id,
+                                                                       name: StringHelper.warnstrip!(name.to_s),
+                                                                       include_all: include_all,
+                                                                       case_ids: case_ids,
+                                                                       assigned_to: assigned_to))
       OnlyofficeLoggerHelper.log "Added plan entry: #{name.to_s.strip}"
-      entry.runs.each_with_index { |run, index| entry.runs[index] = HashHelper.parse_to_class_variable(run, TestrailRun) }
+      entry.runs.each_with_index { |run, index| entry.runs[index] = TestrailRun.new.init_from_hash(run) }
       entry
     end
 

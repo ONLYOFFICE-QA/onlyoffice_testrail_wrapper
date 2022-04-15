@@ -5,7 +5,7 @@ require_relative 'testrail_case'
 module OnlyofficeTestrailWrapper
   # @author Roman.Zagudaev
   # Class for description of test sections
-  class TestrailSection
+  class TestrailSection < TestrailApiObject
     # @return [Integer] Id of test section
     attr_accessor :id
     # @return [Integer] Id of parent test section
@@ -24,6 +24,7 @@ module OnlyofficeTestrailWrapper
     # @param [Integer] suite_id id of test suite
     # @return [TestSectionTestRail] new Test section
     def initialize(name = '', parent_id = nil, suite_id = nil, id = nil)
+      super()
       @id = id
       @name = name
       @suite_id = suite_id
@@ -46,7 +47,7 @@ module OnlyofficeTestrailWrapper
     end
 
     def get_case_by_id(id)
-      test_case = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_case/#{id}"), TestrailCase)
+      test_case = TestrailCase.new.init_from_hash(Testrail2.http_get("index.php?/api/v2/get_case/#{id}"))
       test_case.instance_variable_set :@section, self
       test_case
     end
@@ -83,8 +84,11 @@ module OnlyofficeTestrailWrapper
     # @param [String] custom_steps steps to perform
     # @return [TestCaseTestrail] created test case
     def create_new_case(title, type_id = 3, priority_id = 4, custom_steps = '')
-      new_case = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_case/#{@id}", title: StringHelper.warnstrip!(title.to_s), type_id: type_id,
-                                                                                                             priority_id: priority_id, custom_steps: custom_steps), TestrailCase)
+      new_case = TestrailCase.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/add_case/#{@id}",
+                                                                     title: StringHelper.warnstrip!(title.to_s),
+                                                                     type_id: type_id,
+                                                                     priority_id: priority_id,
+                                                                     custom_steps: custom_steps))
       new_case.instance_variable_set(:@section, self)
       OnlyofficeLoggerHelper.log "Created new case: #{new_case.title}"
       @cases_names[new_case.title] = new_case.id
@@ -94,7 +98,9 @@ module OnlyofficeTestrailWrapper
     def update(name = @name, parent_id = @parent_id)
       @suite.sections_names.delete @name
       @suite.sections_names[StringHelper.warnstrip!(name.to_s)] = @id
-      updated_section = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/update_section/#{@id}", name: name, parent_id: parent_id), TestrailSection)
+      updated_section = TestrailSection.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/update_section/#{@id}",
+                                                                               name: name,
+                                                                               parent_id: parent_id))
       OnlyofficeLoggerHelper.log "Updated section: #{updated_section.name}"
       updated_section
     end

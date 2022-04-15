@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 module OnlyofficeTestrailWrapper
-  class TestrailPlanEntry
+  class TestrailPlanEntry < TestrailApiObject
     attr_accessor :suite_id, :name, :assigned_to, :include_all, :case_ids, :runs
 
     def initialize(params = {})
+      super()
       @suite_id = params.fetch(:suite_id, nil)
       @name = params.fetch(:name, '')
       @include_all = params.fetch(:include_all, true)

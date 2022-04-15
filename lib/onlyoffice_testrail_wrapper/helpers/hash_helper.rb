@@ -10,12 +10,6 @@ module OnlyofficeTestrailWrapper
         array.reverse_each { |element| result_hash[element[key_parameter]] = element[value_parameter] }
         result_hash
       end
-
-      def parse_to_class_variable(hash, class_name)
-        object = class_name.new
-        hash.each { |key, value| object.instance_variable_set("@#{key}", value) }
-        object
-      end
     end
   end
 end

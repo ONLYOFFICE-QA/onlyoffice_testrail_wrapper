@@ -30,7 +30,7 @@ module OnlyofficeTestrailWrapper
     # @param [Integer] id of milestone
     # @return [TestrailMilestone]
     def get_milestone_by_id(id)
-      milestone = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_milestone/#{id}"), TestrailMilestone)
+      milestone = TestrailMilestone.new.init_from_hash(Testrail2.http_get("index.php?/api/v2/get_milestone/#{id}"))
       OnlyofficeLoggerHelper.log("Initialized milestone: #{milestone.name}")
       milestone
     end
@@ -56,7 +56,9 @@ module OnlyofficeTestrailWrapper
     # @param [String] description of milestone
     # @return [TestrailMilestone]
     def create_new_milestone(name, description = '')
-      new_milestone = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_milestone/#{@id}", :name => StringHelper.warnstrip!(name.to_s), description => description), TestrailMilestone)
+      new_milestone = TestrailMilestone.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/add_milestone/#{@id}",
+                                                                               :name => StringHelper.warnstrip!(name.to_s),
+                                                                               description => description))
       OnlyofficeLoggerHelper.log "Created new milestone: #{new_milestone.name}"
       new_milestone
     end

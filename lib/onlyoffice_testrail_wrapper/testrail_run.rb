@@ -5,7 +5,7 @@ require_relative 'testrail_test'
 module OnlyofficeTestrailWrapper
   # @author Roman.Zagudaev
   # Class for working with TestRun in TestRail
-  class TestrailRun
+  class TestrailRun < TestrailApiObject
     # @return [String] Name of test Run
     attr_accessor :name
     # @return [Integer] Id of test run
@@ -49,6 +49,7 @@ module OnlyofficeTestrailWrapper
     # @param [Hash] params all other params
     # @return [TestRunTestRail] new Test run
     def initialize(name = '', description = '', suite_id = nil, id = nil, params = {})
+      super()
       @id = id
       @name = name
       @description = description
@@ -71,7 +72,7 @@ module OnlyofficeTestrailWrapper
 
     def close
       OnlyofficeLoggerHelper.log("Starting to send command to close run: #{@name}")
-      test_run = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/close_run/#{@id}", {}), TestrailRun)
+      test_run = TestrailRun.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/close_run/#{@id}", {}))
       OnlyofficeLoggerHelper.log("Run is closed: #{@name}")
       test_run
     end
@@ -88,7 +89,7 @@ module OnlyofficeTestrailWrapper
     end
 
     def get_test_by_id(id)
-      HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_test/#{id}"), TestrailTest)
+      TestrailTest.new.init_from_hash(Testrail2.http_get("index.php?/api/v2/get_test/#{id}"))
     end
 
     # Get all tests
@@ -105,8 +106,10 @@ module OnlyofficeTestrailWrapper
     end
 
     def add_result_by_case_id(result, case_id, comment = '', version = '')
-      HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_result_for_case/#{@id}/#{case_id}",
-                                                             status_id: TestrailResult[result], comment: comment, version: version), TestrailResult)
+      TestrailResult.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/add_result_for_case/#{@id}/#{case_id}",
+                                                            status_id: TestrailResult[result],
+                                                            comment: comment,
+                                                            version: version))
     end
 
     def parent_suite
@@ -116,7 +119,9 @@ module OnlyofficeTestrailWrapper
     def update(name = @name, description = @description)
       @project.runs_names.delete @name
       @project.runs_names[StringHelper.warnstrip!(name.to_s)] = @id
-      updated_plan = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/update_run/#{@id}", name: name, description: description), TestrailRun)
+      updated_plan = TestrailRun.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/update_run/#{@id}",
+                                                                        name: name,
+                                                                        description: description))
       OnlyofficeLoggerHelper.log "Updated run: #{updated_plan.name}"
       updated_plan
     end

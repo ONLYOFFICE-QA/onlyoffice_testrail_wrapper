@@ -7,7 +7,7 @@ require_relative 'testrail_run'
 module OnlyofficeTestrailWrapper
   # @author Roman.Zagudaev
   # Class for description of test suites
-  class TestrailSuite
+  class TestrailSuite < TestrailApiObject
     # @return [Integer] Id of test suite
     attr_accessor :id
     # @return [String] Name of test suite
@@ -28,6 +28,7 @@ module OnlyofficeTestrailWrapper
     # @param [Integer] project_id id of project of test suite
     # @return [TestrailSuite] new Test suite
     def initialize(name = nil, description = nil, project_id = nil, id = nil)
+      super()
       @id = id
       @name = name
       @description = description
@@ -39,7 +40,7 @@ module OnlyofficeTestrailWrapper
     # @param [String] description description of test run
     # @return [TestRunTestRail] created test run
     def start_test_run(name, description = '')
-      HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_run/#{@project_id}", name: StringHelper.warnstrip!(name.to_s), description: description, suite_id: @id), TestrailRun)
+      TestrailRun.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/add_run/#{@project_id}", name: StringHelper.warnstrip!(name.to_s), description: description, suite_id: @id))
     end
 
     def section(name_or_id = 'All Test Cases')
@@ -58,8 +59,10 @@ module OnlyofficeTestrailWrapper
     # @param [Integer] parent_section id of parent section, default = nil
     def create_new_section(name, parent_section = nil)
       parent_section = get_section_by_name(parent_section).id if parent_section.is_a?(String)
-      new_section = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_section/#{@project_id}", name: StringHelper.warnstrip!(name.to_s),
-                                                                                                                           parent_id: parent_section, suite_id: @id), TestrailSection)
+      new_section = TestrailSection.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/add_section/#{@project_id}",
+                                                                           name: StringHelper.warnstrip!(name.to_s),
+                                                                           parent_id: parent_section,
+                                                                           suite_id: @id))
       OnlyofficeLoggerHelper.log "Created new section: #{new_section.name}"
       @sections_names[new_section.name] = new_section.id
       new_section.instance_variable_set :@project_id, @project_id
@@ -76,7 +79,7 @@ module OnlyofficeTestrailWrapper
     end
 
     def get_section_by_id(id)
-      section = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_section/#{id}"), TestrailSection)
+      section = TestrailSection.new.init_from_hash(Testrail2.http_get("index.php?/api/v2/get_section/#{id}"))
       section.instance_variable_set :@project_id, @project_id
       section.instance_variable_set :@suite, self
       section
@@ -107,7 +110,9 @@ module OnlyofficeTestrailWrapper
     def update(name, description = nil)
       @project.suites_names.delete @name
       @project.suites_names[StringHelper.warnstrip!(name.to_s)] = @id
-      updated_suite = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/update_suite/#{@id}", name: name, description: description), TestrailSuite)
+      updated_suite = TestrailSuite.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/update_suite/#{@id}",
+                                                                           name: name,
+                                                                           description: description))
       OnlyofficeLoggerHelper.log "Updated suite: #{updated_suite.name}"
       updated_suite
     end

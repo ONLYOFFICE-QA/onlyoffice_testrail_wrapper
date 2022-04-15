@@ -29,7 +29,7 @@ module OnlyofficeTestrailWrapper
     # @return [Array<TestrailSuite>] array with TestRailSuite
     def suites
       suites = Testrail2.http_get("index.php?/api/v2/get_suites/#{@id}")
-      suites.map { |suite| HashHelper.parse_to_class_variable(suite, TestrailSuite) }
+      suites.map { |suite| TestrailSuite.new.init_from_hash(suite) }
     end
 
     # Get Test Suite by it's name
@@ -41,7 +41,7 @@ module OnlyofficeTestrailWrapper
     end
 
     def get_suite_by_id(id)
-      suite = HashHelper.parse_to_class_variable(Testrail2.http_get("index.php?/api/v2/get_suite/#{id}"), TestrailSuite)
+      suite = TestrailSuite.new.init_from_hash(Testrail2.http_get("index.php?/api/v2/get_suite/#{id}"))
       suite.instance_variable_set(:@project, self)
       OnlyofficeLoggerHelper.log("Initialized suite: #{suite.name}")
       suite
@@ -60,7 +60,9 @@ module OnlyofficeTestrailWrapper
     # @param [String] description description of suite
     # @return [TestrailSuite] created suite
     def create_new_suite(name, description = '')
-      new_suite = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_suite/#{@id}", name: StringHelper.warnstrip!(name), description: description), TestrailSuite)
+      new_suite = TestrailSuite.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/add_suite/#{@id}",
+                                                                       name: StringHelper.warnstrip!(name),
+                                                                       description: description))
       new_suite.instance_variable_set(:@project, self)
       OnlyofficeLoggerHelper.log "Created new suite: #{new_suite.name}"
       @suites_names[new_suite.name] = new_suite.id

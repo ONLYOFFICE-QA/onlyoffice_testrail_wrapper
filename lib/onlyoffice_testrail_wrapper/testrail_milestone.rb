@@ -2,7 +2,7 @@
 
 module OnlyofficeTestrailWrapper
   # Class for describing milestone data
-  class TestrailMilestone
+  class TestrailMilestone < TestrailApiObject
     # @return [Integer] id of milestone
     attr_accessor :id
     # @return [String] name of milestone
@@ -13,6 +13,7 @@ module OnlyofficeTestrailWrapper
     attr_accessor :is_completed
 
     def initialize(name = '', description = '', is_completed = false, id = nil)
+      super()
       @id = id.to_i
       @name = name
       @description = description
@@ -25,8 +26,10 @@ module OnlyofficeTestrailWrapper
     # @param [String] description new description of milestone
     # @return [TestrailMilestone] updated milestone data
     def update(is_completed = false, name = @name, description = @description)
-      HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/update_milestone/#{@id}", name: name, description: description,
-                                                                                                          is_completed: is_completed), TestrailMilestone)
+      TestrailMilestone.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/update_milestone/#{@id}",
+                                                               name: name,
+                                                               description: description,
+                                                               is_completed: is_completed))
     end
 
     # Delete current milestone

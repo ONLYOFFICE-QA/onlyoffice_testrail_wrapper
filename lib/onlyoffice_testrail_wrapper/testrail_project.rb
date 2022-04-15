@@ -13,7 +13,7 @@ require_relative 'testrail_project/testrail_project_suite_methods'
 module OnlyofficeTestrailWrapper
   # @author Roman.Zagudaev
   # Class for working with Test Projects
-  class TestrailProject
+  class TestrailProject < TestrailApiObject
     include ProjectCleanup
     include TestrailProjectMilestoneMethods
     include TestrailProjectPlanHelper
@@ -49,6 +49,7 @@ module OnlyofficeTestrailWrapper
     # @param is_completed [true, false] is project completed, default = nil
     # @return [TestRunTestRail] new Test run
     def initialize(name = '', announcement = nil, show_announcement = true, is_completed = false, id = nil)
+      super()
       @id = id.to_i
       @name = name
       @announcement = announcement
@@ -63,8 +64,11 @@ module OnlyofficeTestrailWrapper
     def update(is_completed = false, name = @name, announcement = @announcement, show_announcement = @show_announcement)
       @testrail.projects_names.delete[@name]
       @testrail.projects_names[StringHelper.warnstrip!(name.to_s)] = @id
-      updated_project = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/update_project/#{@id}", name: name, announcement: announcement,
-                                                                                                                          show_announcement: show_announcement, is_completed: is_completed), TestrailProject)
+      updated_project = TestrailProject.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/update_project/#{@id}",
+                                                                               name: name,
+                                                                               announcement: announcement,
+                                                                               show_announcement: show_announcement,
+                                                                               is_completed: is_completed))
       OnlyofficeLoggerHelper.log "Updated project: #{updated_project.name}"
       updated_project
     end

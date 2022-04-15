@@ -20,6 +20,8 @@
 * Remove `codeclimate` support since we don't use it any more
 * Check `dependabot` at 8:00 Moscow time daily
 * Increase test coverage
+* Replace usage of `parse_to_class_variable` with `init_from_hash`
+* `--fail-fast` option for rspec by default
 
 ## 0.3.0 (2021-04-05)
 

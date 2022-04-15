@@ -3,7 +3,7 @@
 module OnlyofficeTestrailWrapper
   # @author Roman.Zagudaev
   # Class for description of test case
-  class TestrailCase
+  class TestrailCase < TestrailApiObject
     # @return [Integer] Id of test case
     attr_accessor :id
     # @return [String] title of test case
@@ -25,6 +25,7 @@ module OnlyofficeTestrailWrapper
     # @param [Integer] id Id of test case
     # @return [TestCaseTestrail] new test case
     def initialize(title = nil, type_id = 3, priority_id = 4, custom_steps = nil, id = nil)
+      super()
       @id = id
       @title = title
       @type_id = type_id
@@ -35,8 +36,11 @@ module OnlyofficeTestrailWrapper
     def update(title = @title, type_id = @type_id, priority_id = @priority_id, custom_steps = @custom_steps)
       @section.cases_names.delete @title
       @section.cases_names[StringHelper.warnstrip!(title.to_s)] = @id
-      HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/update_case/#{@id}", title: title, type_id: type_id,
-                                                                                                     priority_id: priority_id, custom_steps: custom_steps), TestrailCase)
+      TestrailCase.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/update_case/#{@id}",
+                                                          title: title,
+                                                          type_id: type_id,
+                                                          priority_id: priority_id,
+                                                          custom_steps: custom_steps))
     end
 
     def delete
@@ -47,13 +51,15 @@ module OnlyofficeTestrailWrapper
 
     def get_results(run_id)
       case_results = Testrail2.http_get "index.php?/api/v2/get_results_for_case/#{run_id}/#{@id}"
-      case_results.each_with_index { |test_case, index| case_results[index] = HashHelper.parse_to_class_variable(test_case, TestrailResult) }
+      case_results.each_with_index { |test_case, index| case_results[index] = TestrailResult.new.init_from_hash(test_case) }
       case_results
     end
 
     def add_result(run_id, result, comment = '', custom_fields = {}, version = '')
-      response = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_result_for_case/#{run_id}/#{@id}", { status_id: TestrailResult::RESULT_STATUSES[result],
-                                                                                                                                    comment: comment, version: version }.merge(custom_fields)), TestrailResult)
+      response = TestrailResult.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/add_result_for_case/#{run_id}/#{@id}",
+                                                                       { status_id: TestrailResult::RESULT_STATUSES[result],
+                                                                         comment: comment,
+                                                                         version: version }.merge(custom_fields)))
       OnlyofficeLoggerHelper.log "Set test case result: #{result}. URL: #{Testrail2.get_testrail_address}index.php?/tests/view/#{response.test_id}", output_colors[result]
       response
     end

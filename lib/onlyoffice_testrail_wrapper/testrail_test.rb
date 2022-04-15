@@ -4,7 +4,7 @@ require_relative 'testrail_result'
 
 module OnlyofficeTestrailWrapper
   # Class for working with single testrail case
-  class TestrailTest
+  class TestrailTest < TestrailApiObject
     # @return [Integer] test id
     attr_accessor :id
     # @return [Integer] test run id
@@ -19,6 +19,7 @@ module OnlyofficeTestrailWrapper
     attr_accessor :assignedto_id
 
     def initialize(id = nil, run_id = nil, case_id = nil, title = '')
+      super()
       @id = id
       @title = title
       @case_id = case_id
@@ -29,7 +30,7 @@ module OnlyofficeTestrailWrapper
     # @return [Array<TestrailResult>] list of results
     def get_results
       @results.nil? ? @results = Testrail2.http_get("index.php?/api/v2/get_results/#{@id}") : (return @results)
-      @results.each_with_index { |result, index| @results[index] = HashHelper.parse_to_class_variable(result, TestrailResult) }
+      @results.each_with_index { |result, index| @results[index] = TestrailResult.new.init_from_hash(result) }
       @results
     end
 
@@ -40,8 +41,10 @@ module OnlyofficeTestrailWrapper
     # @return [TestrailResult] result of adding
     def add_result(status, comment = '', version = '')
       status = TestrailResult::RESULT_STATUSES[status] if status.is_a?(Symbol)
-      result = HashHelper.parse_to_class_variable(Testrail2.http_post("index.php?/api/v2/add_result/#{@id}", status_id: status,
-                                                                                                             comment: comment, version: version), TestrailResult)
+      result = TestrailResult.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/add_result/#{@id}",
+                                                                     status_id: status,
+                                                                     comment: comment,
+                                                                     version: version))
       OnlyofficeLoggerHelper.log "Set test result: #{status}"
       result
     end
