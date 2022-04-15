@@ -37,7 +37,7 @@ module OnlyofficeTestrailWrapper
     # @return [TestrailSuite, nil] test suite or nil if not found
     def get_suite_by_name(name)
       cached_suites = suites
-      @suites_names = cached_suites.map(&:name) if @suites_names.empty?
+      @suites_names = cached_suites.map(&:name)
       return nil unless @suites_names.include?(name)
 
       cached_suites.find { |suite| suite.name == name }
