@@ -2,8 +2,9 @@
 
 require 'onlyoffice_bugzilla_helper'
 require_relative 'testrail_helper/testrail_helper_rspec_metadata'
-require_relative 'testrail_helper/test_result_lpv_exception'
-require_relative 'testrail_helper/test_result_service_navailable_exception'
+require_relative 'testrail_helper/example_failed_got_expected_exception'
+require_relative 'testrail_helper/example_lpv_exception'
+require_relative 'testrail_helper/example_service_unavailable_exception'
 require_relative 'testrail'
 require_relative 'helpers/ruby_helper'
 require_relative 'helpers/system_helper'
@@ -80,18 +81,18 @@ module OnlyofficeTestrailWrapper
         example.add_custom_exception(comment) if result == :failed
         result = :lpv if comment.downcase.include?('limited program version')
       elsif exception.to_s.include?('got:') || exception.to_s.include?('expected:')
-        result = :failed
-        failed_line = RspecHelper.find_failed_line(example)
-        comment += "\n#{exception.to_s.gsub('got:', "got:\n").gsub('expected:', "expected:\n")}\nIn line:\n#{failed_line}"
+        testrail_exception = ExampleFailedGotExpectedException.new(example)
+        result = testrail_exception.result
+        comment += testrail_exception.comment
       elsif exception.to_s.include?('to return') || exception.to_s.include?('expected')
         result = :failed
         comment += "\n#{exception.to_s.gsub('to return ', "to return:\n").gsub(', got ', "\ngot:\n")}"
       elsif exception.to_s.include?('Service Unavailable')
-        testrail_exception = TestResultServiceUnavailableException.new(exception)
+        testrail_exception = ExampleServiceUnavailableException.new(example)
         result = testrail_exception.result
         comment += testrail_exception.comment
       elsif exception.to_s.include?('Limited program version')
-        testrail_exception = TestResultLPVException.new(exception)
+        testrail_exception = ExampleLPVException.new(exception)
         result = testrail_exception.result
         comment += testrail_exception.comment
       elsif exception.nil?

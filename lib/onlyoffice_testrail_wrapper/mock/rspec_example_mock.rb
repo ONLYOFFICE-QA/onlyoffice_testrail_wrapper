@@ -5,8 +5,13 @@ module OnlyofficeTestrailWrapper
   class RspecExceptionMock
     attr_accessor :backtrace
 
-    def initialize
-      @backtrace = %w[TestBackTraceLine1 TestBackTraceLine2]
+    def initialize(backtrace = %w[TestBackTraceLine1 TestBackTraceLine2])
+      @backtrace = backtrace
+    end
+
+    # @return [String] string version of exception
+    def to_s
+      @backtrace
     end
   end
 
@@ -31,15 +36,10 @@ module OnlyofficeTestrailWrapper
     def initialize(description: 'MockDescription',
                    exception: RspecExceptionMock.new)
       @exception = exception
-      @metadata = { execution_result: RspecExceptionResultMock.new }
+      @metadata = { execution_result: RspecExceptionResultMock.new, absolute_file_path: __FILE__ }
       @pending = false
       @description = description
       @section = ''
-    end
-
-    # @return [String] data from exception
-    def to_s
-      @description
     end
   end
 end
