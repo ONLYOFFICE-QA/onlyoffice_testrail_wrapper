@@ -3,6 +3,7 @@
 require 'onlyoffice_bugzilla_helper'
 require_relative 'testrail_helper/testrail_helper_rspec_metadata'
 require_relative 'testrail_helper/test_result_lpv_exception'
+require_relative 'testrail_helper/test_result_service_navailable_exception'
 require_relative 'testrail'
 require_relative 'helpers/ruby_helper'
 require_relative 'helpers/system_helper'
@@ -86,8 +87,9 @@ module OnlyofficeTestrailWrapper
         result = :failed
         comment += "\n#{exception.to_s.gsub('to return ', "to return:\n").gsub(', got ', "\ngot:\n")}"
       elsif exception.to_s.include?('Service Unavailable')
-        result = :service_unavailable
-        comment += "\n#{exception}"
+        testrail_exception = TestResultServiceUnavailableException.new(exception)
+        result = testrail_exception.result
+        comment += testrail_exception.comment
       elsif exception.to_s.include?('Limited program version')
         testrail_exception = TestResultLPVException.new(exception)
         result = testrail_exception.result
