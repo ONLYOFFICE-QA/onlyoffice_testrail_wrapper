@@ -36,5 +36,10 @@ module OnlyofficeTestrailWrapper
       @description = description
       @section = ''
     end
+
+    # @return [String] data from exception
+    def to_s
+      @description
+    end
   end
 end

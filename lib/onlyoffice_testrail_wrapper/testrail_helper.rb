@@ -2,6 +2,7 @@
 
 require 'onlyoffice_bugzilla_helper'
 require_relative 'testrail_helper/testrail_helper_rspec_metadata'
+require_relative 'testrail_helper/test_result_lpv_exception'
 require_relative 'testrail'
 require_relative 'helpers/ruby_helper'
 require_relative 'helpers/system_helper'
@@ -88,8 +89,9 @@ module OnlyofficeTestrailWrapper
         result = :service_unavailable
         comment += "\n#{exception}"
       elsif exception.to_s.include?('Limited program version')
-        result = :lpv
-        comment += "\n#{exception}"
+        testrail_exception = TestResultLPVException.new(exception)
+        result = testrail_exception.result
+        comment += testrail_exception.comment
       elsif exception.nil?
         result = if @last_case == example.description
                    :passed_2
