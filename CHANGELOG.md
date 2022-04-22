@@ -33,6 +33,7 @@
   `TestrailHelper#get_plan_name_by_substring`,
   `TestrailHelper#get_tests_by_result`
   `TestrailStatusHelper#check_status_exist`
+* Fix `rubocop-1.28.1` code issues
 
 ## 0.3.0 (2021-04-05)
 

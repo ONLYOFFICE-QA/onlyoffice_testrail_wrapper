@@ -47,9 +47,9 @@ module OnlyofficeTestrailWrapper
       CONFIG_LOCATION = "#{Dir.home}/.gem-onlyoffice_testrail_wrapper/config.yml"
 
       def read_keys
-        @testrail_url = ENV['TESTRAIL_URL']
-        @admin_user = ENV['TESTRAIL_USER']
-        @admin_pass = ENV['TESTRAIL_PASSWORD']
+        @testrail_url = ENV.fetch('TESTRAIL_URL', 'http://unknown.url')
+        @admin_user = ENV.fetch('TESTRAIL_USER', nil)
+        @admin_pass = ENV.fetch('TESTRAIL_PASSWORD', nil)
         return unless @admin_user.nil? && @admin_pass.nil?
 
         begin
