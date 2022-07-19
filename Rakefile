@@ -10,9 +10,9 @@ task default: :spec
 desc 'Release gem '
 task :release_github_rubygems do
   Rake::Task['release'].invoke
-  gem_name = "#{OnlyofficeTestrailWrapper::Name::STRING}-"\
+  gem_name = "#{OnlyofficeTestrailWrapper::Name::STRING}-" \
              "#{OnlyofficeTestrailWrapper::Version::STRING}.gem"
-  sh('gem push --key github '\
-     '--host https://rubygems.pkg.github.com/ONLYOFFICE-QA '\
+  sh('gem push --key github ' \
+     '--host https://rubygems.pkg.github.com/ONLYOFFICE-QA ' \
      "pkg/#{gem_name}")
 end
