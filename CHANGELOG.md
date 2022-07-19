@@ -34,6 +34,7 @@
   `TestrailHelper#get_tests_by_result`
   `TestrailStatusHelper#check_status_exist`
 * Fix `rubocop-1.28.1` code issues
+* Drop support of `ruby-2.5` and `ruby-2.6` since they EOL'ed
 
 ## 0.3.0 (2021-04-05)
 
