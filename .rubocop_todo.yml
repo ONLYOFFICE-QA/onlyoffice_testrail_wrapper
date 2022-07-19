@@ -90,12 +90,6 @@ Style/OptionalBooleanParameter:
     - 'lib/onlyoffice_testrail_wrapper/testrail_plan.rb'
     - 'lib/onlyoffice_testrail_wrapper/testrail_project.rb'
 
-# Offense count: 2
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/SlicingWithRange:
-  Exclude:
-    - 'lib/onlyoffice_testrail_wrapper/testrail_tools/testrail_tools.rb'
-
 # Offense count: 19
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, AllowedPatterns, IgnoredPatterns.
