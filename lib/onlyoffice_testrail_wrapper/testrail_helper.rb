@@ -114,7 +114,7 @@ module OnlyofficeTestrailWrapper
     end
 
     def get_incomplete_tests
-      @run.get_tests.map { |test| test['title'] if test['status_id'] == 3 || test['status_id'] == 4 }.compact
+      @run.get_tests.filter_map { |test| test['title'] if test['status_id'] == 3 || test['status_id'] == 4 }
     end
 
     private

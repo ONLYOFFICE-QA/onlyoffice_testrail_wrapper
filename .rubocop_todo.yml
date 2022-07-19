@@ -58,13 +58,6 @@ Naming/AccessorMethodName:
     - 'lib/onlyoffice_testrail_wrapper/testrail_tools/testrail_tools.rb'
 
 # Offense count: 2
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Performance/MapCompact:
-  Exclude:
-    - 'lib/onlyoffice_testrail_wrapper/testrail_helper.rb'
-    - 'lib/onlyoffice_testrail_wrapper/testrail_tools/testrail_tools.rb'
-
-# Offense count: 2
 # Configuration parameters: CountAsOne.
 RSpec/ExampleLength:
   Max: 10
