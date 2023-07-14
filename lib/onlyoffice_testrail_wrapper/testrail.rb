@@ -153,7 +153,10 @@ module OnlyofficeTestrailWrapper
 
     def get_project_by_name(name)
       get_projects if @projects_names.empty?
-      @projects_names[StringHelper.warnstrip!(name.to_s)].nil? ? nil : get_project_by_id(@projects_names[StringHelper.warnstrip!(name.to_s)])
+      project_name = StringHelper.warnstrip!(name.to_s)
+      return nil unless @projects_names[project_name]
+
+      get_project_by_id(@projects_names[project_name])
     end
 
     # Check if Testrail connection is available

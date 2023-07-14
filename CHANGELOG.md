@@ -38,6 +38,7 @@
 * Drop support of `ruby-2.5` and `ruby-2.6` since they EOL'ed
 * Change order of `rubocop` check in CI
 * Remove `ruby-2.7` from CI since it's EOLed, but keep it in `gemspec`
+* Simplify code in `Testrail2#get_project_by_name`
 
 ## 0.3.0 (2021-04-05)
 
