@@ -62,8 +62,6 @@ module OnlyofficeTestrailWrapper
     end
 
     def update(is_completed = false, name = @name, announcement = @announcement, show_announcement = @show_announcement)
-      @testrail.projects_names.delete[@name]
-      @testrail.projects_names[StringHelper.warnstrip!(name.to_s)] = @id
       updated_project = TestrailProject.new.init_from_hash(Testrail2.http_post("index.php?/api/v2/update_project/#{@id}",
                                                                                name: name,
                                                                                announcement: announcement,
@@ -76,7 +74,6 @@ module OnlyofficeTestrailWrapper
     def delete
       Testrail2.http_post "index.php?/api/v2/delete_project/#{@id}", {}
       OnlyofficeLoggerHelper.log "Deleted project: #{@name}"
-      @testrail.projects_names.delete @name
     end
   end
 end
