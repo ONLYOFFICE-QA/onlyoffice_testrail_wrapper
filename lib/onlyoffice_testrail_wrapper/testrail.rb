@@ -143,7 +143,7 @@ module OnlyofficeTestrailWrapper
     def get_project_by_name(name)
       projects = get_projects
       project_name = StringHelper.warnstrip!(name.to_s)
-      project = projects.find { |project| project['name'] == project_name }
+      project = projects.find { |current_project| current_project['name'] == project_name }
       return nil unless project
 
       TestrailProject.new.init_from_hash(project)
