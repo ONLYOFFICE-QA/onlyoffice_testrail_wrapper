@@ -28,10 +28,6 @@ module OnlyofficeTestrailWrapper
     # @return [String] password for admin user
     @admin_pass = nil
 
-    def initialize
-      super()
-    end
-
     class << self
       attr_accessor :testrail_url
       # Attribute to write admin_user
