@@ -141,11 +141,12 @@ module OnlyofficeTestrailWrapper
     end
 
     def get_project_by_name(name)
-      projects_names = get_projects.map(&:name)
+      projects = get_projects
       project_name = StringHelper.warnstrip!(name.to_s)
-      return nil unless projects_names[project_name]
+      project = projects.find { |project| project['name'] == project_name }
+      return nil unless project
 
-      get_project_by_id(projects_names[project_name])
+      TestrailProject.new.init_from_hash(project)
     end
 
     # Check if Testrail connection is available
