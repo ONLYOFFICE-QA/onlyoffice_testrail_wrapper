@@ -144,6 +144,9 @@ module OnlyofficeTestrailWrapper
       project
     end
 
+    # Get Testrail project by it's name
+    # @param [String] name name of project
+    # @return [TestrailProject] project with this name
     def get_project_by_name(name)
       projects = get_projects
       project_name = StringHelper.warnstrip!(name.to_s)
