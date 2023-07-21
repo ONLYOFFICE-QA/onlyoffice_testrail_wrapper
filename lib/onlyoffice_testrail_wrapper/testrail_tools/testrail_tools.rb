@@ -15,7 +15,9 @@ require_relative '../testrail'
 #  TestrailTools.close_all_runs
 #
 module OnlyofficeTestrailWrapper
+  # Module for Tools for Testrail
   module TestrailTools
+    # Class for Testrail configuration
     class TestrailConfig
       attr_accessor :project, :plan, :suite, :run
     end

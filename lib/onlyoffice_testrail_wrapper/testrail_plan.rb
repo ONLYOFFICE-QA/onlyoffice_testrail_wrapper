@@ -3,6 +3,7 @@
 require_relative 'testrail_plan_entry'
 
 module OnlyofficeTestrailWrapper
+  # Class for working with testrail plan
   class TestrailPlan < TestrailApiObject
     # @return [Integer] Id of test plan
     attr_accessor :id
