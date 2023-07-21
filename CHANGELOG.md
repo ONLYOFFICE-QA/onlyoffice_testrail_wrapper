@@ -9,6 +9,7 @@
 * Add missing dependency of `onlyoffice_file_helper`
 * Introduce new class for `TestrailHelper` test results
 * Add `TESTRAIL_IN_DEBUG` env to force testrail use in debug mode
+* Make connection to testrail persistence. This may cause problems
 
 ### Fixes
 
