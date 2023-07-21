@@ -167,22 +167,25 @@ module OnlyofficeTestrailWrapper
 
     # endregion
 
+    # Send request to Testrail
+    # @param [URI] uri uri to send request
+    # @param [Net::HTTP::Get, Net::HTTP::Post] request request to send
+    # @return [Net::HTTPResponse] response from Testrail
     def self.send_request(uri, request)
       request.basic_auth admin_user, admin_pass
       request.delete 'content-type'
       request.add_field 'content-type', 'application/json'
       is_ssl = (uri.scheme == 'https')
-      Net::HTTP.start(uri.host, uri.port, use_ssl: is_ssl) do |http|
-        attempts = 0
-        begin
-          response = http.request(request)
-        rescue Timeout::Error
-          attempts += 1
-          retry if attempts < 3
-          raise 'Timeout error after 3 attempts'
-        end
-        return response
+      @connection ||= Net::HTTP.start(uri.host, uri.port, use_ssl: is_ssl)
+      attempts = 0
+      begin
+        response = @connection.request(request)
+      rescue Timeout::Error
+        attempts += 1
+        retry if attempts < 3
+        raise 'Timeout error after 3 attempts'
       end
+      response
     end
   end
 end
