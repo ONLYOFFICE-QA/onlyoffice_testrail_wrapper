@@ -39,6 +39,7 @@
 * Change order of `rubocop` check in CI
 * Remove `ruby-2.7` from CI since it's EOLed, but keep it in `gemspec`
 * Simplify code in `Testrail2#get_project_by_name`
+* Do not cache projects name in `Testrail2`
 
 ## 0.3.0 (2021-04-05)
 

@@ -28,14 +28,6 @@ module OnlyofficeTestrailWrapper
     # @return [String] password for admin user
     @admin_pass = nil
 
-    # @return [Hash] project information
-    attr_accessor :projects_names
-
-    def initialize
-      super()
-      @projects_names = {}
-    end
-
     class << self
       attr_accessor :testrail_url
       # Attribute to write admin_user
@@ -116,10 +108,12 @@ module OnlyofficeTestrailWrapper
     end
 
     # Get all projects on testrail
-    # @return [Array, ProjectTestrail] array of projects
+    # @return [Array<TestrailProject>] array of projects data
     def get_projects
-      projects = Testrail2.http_get 'index.php?/api/v2/get_projects'
-      @projects_names = name_id_pairs(projects) if @projects_names.empty?
+      projects = []
+      Testrail2.http_get('index.php?/api/v2/get_projects').each do |project|
+        projects << TestrailProject.new.init_from_hash(project)
+      end
       projects
     end
 
@@ -130,7 +124,6 @@ module OnlyofficeTestrailWrapper
                                                                            show_announcement: show_announcement))
       OnlyofficeLoggerHelper.log "Created new project: #{new_project.name}"
       new_project.instance_variable_set(:@testrail, self)
-      @projects_names[new_project.name] = new_project.id
       new_project
     end
 
@@ -151,12 +144,16 @@ module OnlyofficeTestrailWrapper
       project
     end
 
+    # Get Testrail project by it's name
+    # @param [String] name name of project
+    # @return [TestrailProject, nil] project with this name or nil if not found
     def get_project_by_name(name)
-      get_projects if @projects_names.empty?
+      projects = get_projects
       project_name = StringHelper.warnstrip!(name.to_s)
-      return nil unless @projects_names[project_name]
+      project = projects.find { |current_project| current_project.name == project_name }
+      return nil unless project
 
-      get_project_by_id(@projects_names[project_name])
+      project
     end
 
     # Check if Testrail connection is available
