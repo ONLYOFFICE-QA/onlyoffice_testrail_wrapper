@@ -136,10 +136,9 @@ module OnlyofficeTestrailWrapper
       suites_names.map { |suite| all_suites_names.include?(suite) ? { 'suite_id' => @project.suites_names[suite] } : { 'suite_id' => @project.create_new_suite(suite).id } }
     end
 
-    # Check if we should connect to testrail
+    # Check if we should skip connecting to testrail
     # In debug mode (except when `TESTRAIL_IN_DEBUG` env is set)
-    # we do not connect that
-    # For easy debugging E2E tests
+    # we do not do that for easy debugging E2E tests
     # @return [Boolean]
     def skip_testrail_connection?
       return false unless @in_debug
