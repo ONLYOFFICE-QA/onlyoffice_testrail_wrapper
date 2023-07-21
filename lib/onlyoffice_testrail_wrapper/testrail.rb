@@ -55,12 +55,12 @@ module OnlyofficeTestrailWrapper
       end
 
       def admin_user
-        read_keys
+        read_keys unless @admin_user
         @admin_user
       end
 
       def admin_pass
-        read_keys
+        read_keys unless @admin_pass
         @admin_pass
       end
 

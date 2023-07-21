@@ -13,6 +13,7 @@
 ### Fixes
 
 * Fix `markdownlint` failure because of old `nodejs` in CI
+* Reduce `read_keys` calls - store values in cache
 
 ### Changes
 
