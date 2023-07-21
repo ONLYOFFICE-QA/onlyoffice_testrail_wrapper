@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module OnlyofficeTestrailWrapper
+  # Class for working with testrail plan entry
   class TestrailPlanEntry < TestrailApiObject
     attr_accessor :suite_id, :name, :assigned_to, :include_all, :case_ids, :runs
 
