@@ -24,7 +24,7 @@ module OnlyofficeTestrailWrapper
       rescue Errno::ENOENT
         @bugzilla_helper = nil
       end
-      if @in_debug
+      if skip_testrail_connection?
         OnlyofficeLoggerHelper.log 'Do not initialize Testrail, because spec run in debug'
         @run = TestrailRun.new
         return
@@ -134,6 +134,17 @@ module OnlyofficeTestrailWrapper
 
     def suites_to_add_hash(suites_names)
       suites_names.map { |suite| all_suites_names.include?(suite) ? { 'suite_id' => @project.suites_names[suite] } : { 'suite_id' => @project.create_new_suite(suite).id } }
+    end
+
+    # Check if we should skip connecting to testrail
+    # In debug mode (except when `TESTRAIL_IN_DEBUG` env is set)
+    # we do not do that for easy debugging E2E tests
+    # @return [Boolean]
+    def skip_testrail_connection?
+      return false unless @in_debug
+      return false if ENV['TESTRAIL_IN_DEBUG']
+
+      true
     end
   end
 end
