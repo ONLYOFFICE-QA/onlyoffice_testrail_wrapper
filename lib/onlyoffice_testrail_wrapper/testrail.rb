@@ -7,7 +7,7 @@ require 'net/http'
 require 'json'
 require 'yaml'
 require_relative 'testrail_project'
-require_relative 'tesrail/requests_helper'
+require_relative 'testrail/requests_helper'
 
 module OnlyofficeTestrailWrapper
   # Main class for working with testrail
