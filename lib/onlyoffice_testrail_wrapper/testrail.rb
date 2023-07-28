@@ -177,6 +177,7 @@ module OnlyofficeTestrailWrapper
       request.add_field 'content-type', 'application/json'
       is_ssl = (uri.scheme == 'https')
       @connection ||= Net::HTTP.start(uri.host, uri.port, use_ssl: is_ssl)
+      @connection.start unless @connection.started?
       attempts = 0
       begin
         response = @connection.request(request)
