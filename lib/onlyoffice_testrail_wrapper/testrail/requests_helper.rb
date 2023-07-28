@@ -7,7 +7,7 @@ module OnlyofficeTestrailWrapper
     # @param [URI] uri uri to send request
     # @param [Net::HTTP::Get, Net::HTTP::Post] request request to send
     # @return [Net::HTTPResponse] response from Testrail
-    def self.send_request(uri, request)
+    def send_request(uri, request)
       request.basic_auth admin_user, admin_pass
       request.delete 'content-type'
       request.add_field 'content-type', 'application/json'
