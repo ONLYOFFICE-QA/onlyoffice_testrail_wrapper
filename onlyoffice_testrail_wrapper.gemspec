@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.name = OnlyofficeTestrailWrapper::Name::STRING
   s.version = OnlyofficeTestrailWrapper::Version::STRING
   s.platform = Gem::Platform::RUBY
-  s.required_ruby_version = '>= 2.7'
+  s.required_ruby_version = '>= 3.0'
   s.authors = ['ONLYOFFICE', 'Pavel Lobashov', 'Roman Zagudaev']
   s.summary = 'ONLYOFFICE Testrail Wrapper Gem'
   s.description = 'Wrapper for Testrail by OnlyOffice'

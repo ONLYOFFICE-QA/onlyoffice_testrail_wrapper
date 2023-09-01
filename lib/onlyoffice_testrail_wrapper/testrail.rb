@@ -38,7 +38,7 @@ module OnlyofficeTestrailWrapper
       attr_writer :admin_pass
 
       # @return [String] default config location
-      CONFIG_LOCATION = "#{Dir.home}/.gem-onlyoffice_testrail_wrapper/config.yml"
+      CONFIG_LOCATION = "#{Dir.home}/.gem-onlyoffice_testrail_wrapper/config.yml".freeze
 
       def read_keys
         @testrail_url = ENV.fetch('TESTRAIL_URL', 'http://unknown.url')
