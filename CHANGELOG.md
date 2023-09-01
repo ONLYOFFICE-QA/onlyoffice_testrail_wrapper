@@ -42,7 +42,7 @@
 * Fix `rubocop-1.31.2` code issues
 * Drop support of `ruby-2.5` and `ruby-2.6` since they EOL'ed
 * Change order of `rubocop` check in CI
-* Drop `ruby-2.7` from CI since it's EOLed
+* Drop `ruby-2.7` support, since it's EOLed
 * Simplify code in `Testrail2#get_project_by_name`
 * Do not cache projects name in `Testrail2`
 
