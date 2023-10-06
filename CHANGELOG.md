@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+### Changes
+
+* Run `codecov` CI action only on latest ruby version
+
 ## 0.4.0 (2023-08-09)
 
 ### New Features
