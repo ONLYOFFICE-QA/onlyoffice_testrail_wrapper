@@ -5,6 +5,7 @@
 ### Changes
 
 * Run `codecov` CI action only on latest ruby version
+* Update `codecov/codecov-action` CI action to v3
 
 ## 0.4.0 (2023-08-09)
 
