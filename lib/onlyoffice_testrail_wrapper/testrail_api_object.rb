@@ -7,7 +7,7 @@ module OnlyofficeTestrailWrapper
     # @param [Hash] hash with data
     # @return
     def init_from_hash(hash)
-      hash.each { |key, value| instance_variable_set("@#{key}", value) }
+      hash.each { |key, value| instance_variable_set(:"@#{key}", value) }
       self
     end
 
