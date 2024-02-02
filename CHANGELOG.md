@@ -10,6 +10,7 @@
 ### Fixes
 
 * Fix `gem build` warning about license name
+* Fix `gem build` warning about homepage
 
 ### Changes
 
