@@ -12,6 +12,7 @@
 * Run `codecov` CI action only on latest ruby version
 * Update `codecov/codecov-action` CI action to v3
 * Update `actions/checkout` CI action to v4
+* Migrate to `codecov-4` CI action
 
 ## 0.4.0 (2023-08-09)
 
