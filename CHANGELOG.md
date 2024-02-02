@@ -7,6 +7,10 @@
 * Add `ruby-3.3` to CI
 * Add `dependabot` check for `GitHub Actions`
 
+### Fixes
+
+* Fix `gem build` warning about license name
+
 ### Changes
 
 * Run `codecov` CI action only on latest ruby version
