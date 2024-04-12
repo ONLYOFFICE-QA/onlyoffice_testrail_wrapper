@@ -92,11 +92,9 @@ module OnlyofficeTestrailWrapper
     # Get all runs in current plan
     # @return [Array, TestrailRuns]
     def runs
-      runs = []
-      @entries.each do |entry|
-        runs << entry.runs.first
+      @entries.map do |entry|
+        entry.runs.first
       end
-      runs
     end
 
     # Generate array of durations of runs
