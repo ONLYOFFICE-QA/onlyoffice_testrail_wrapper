@@ -88,11 +88,9 @@ module OnlyofficeTestrailWrapper
     # Get all projects on testrail
     # @return [Array<TestrailProject>] array of projects data
     def get_projects
-      projects = []
-      Testrail2.http_get('index.php?/api/v2/get_projects').each do |project|
-        projects << TestrailProject.new.init_from_hash(project)
+      Testrail2.http_get('index.php?/api/v2/get_projects').map do |project|
+        TestrailProject.new.init_from_hash(project)
       end
-      projects
     end
 
     def create_new_project(name, announcement = '', show_announcement = true)
