@@ -21,8 +21,8 @@ Gem::Specification.new do |s|
   }
   s.email = %w[shockwavenn@gmail.com rzagudaev@gmail.com]
   s.files = Dir['lib/**/*']
-  s.add_runtime_dependency('onlyoffice_bugzilla_helper', '~> 0.1')
-  s.add_runtime_dependency('onlyoffice_file_helper', '< 3')
-  s.add_runtime_dependency('onlyoffice_logger_helper', '~> 1')
+  s.add_dependency('onlyoffice_bugzilla_helper', '~> 0.1')
+  s.add_dependency('onlyoffice_file_helper', '< 3')
+  s.add_dependency('onlyoffice_logger_helper', '~> 1')
   s.license = 'AGPL-3.0-or-later'
 end

@@ -5,6 +5,7 @@
 ### Changes
 
 * Fixes from `rubocop-1.63.1` upgrade
+* Fixes from `rubocop-1.65.0` upgrade (`Gemspec/AddRuntimeDependency`)
 
 ## 0.5.0 (2024-02-02)
 
