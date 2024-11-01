@@ -86,7 +86,7 @@ module OnlyofficeTestrailWrapper
     end
 
     def self.check_config(*args)
-      return if @testrail_config&.instance_variables&.allbits?(args[1..])
+      return if @testrail_config&.instance_variables&.intersection(args) == args[1..]
 
       raise "Method: #{args.shift} - some of needed parameters are missing: #{args.join(', ')}. To configure them, type:\n
              TestrailTools.configure do |config|\n\t\tconfig.param_name = value\n\tend"
