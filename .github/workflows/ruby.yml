@@ -31,7 +31,7 @@ jobs:
           TESTRAIL_PASSWORD: ${{ secrets.TESTRAIL_PASSWORD }}
         run: |
           bundle exec rake
-      - uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v5
         if: matrix.ruby == '3.3'
         with:
           fail_ci_if_error: true
