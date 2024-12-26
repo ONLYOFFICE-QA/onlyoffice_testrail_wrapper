@@ -2,11 +2,16 @@
 
 ## master (unreleased)
 
+### New Features
+
+* Add `ruby-3.4` to CI
+
 ### Changes
 
 * Fixes from `rubocop-1.63.1` upgrade
 * Fixes from `rubocop-1.65.0` upgrade (`Gemspec/AddRuntimeDependency`)
 * Code changes after update to `rubocop-1.68.0`
+* Remove `ruby-3.0` from CI, since it's EOLed
 
 ## 0.5.0 (2024-02-02)
 
