@@ -12,6 +12,9 @@ require_relative 'helpers/system_helper'
 module OnlyofficeTestrailWrapper
   # Class with help methods with testrail
   class TestrailHelper
+    # @return [Array<Integer>] statuses of tests that are considered incomplete
+    INCOMPLETE_TEST_STATUSES = [3, 4].freeze
+
     include RubyHelper
     include TestrailHelperRspecMetadata
     attr_reader :project, :plan, :suite, :run
@@ -113,8 +116,10 @@ module OnlyofficeTestrailWrapper
       @suite.section(section_name).case(example.description).add_result @run.id, result, comment, custom_fields
     end
 
+    # Get list of all incomplete tests
+    # @return [Array<String>] list of incomplete tests
     def get_incomplete_tests
-      @run.get_tests.filter_map { |test| test['title'] if test['status_id'] == 3 || test['status_id'] == 4 }
+      @run.get_tests.filter_map { |test| test['title'] if INCOMPLETE_TEST_STATUSES.include?(test['status_id']) }
     end
 
     private
