@@ -12,6 +12,7 @@
 * Fixes from `rubocop-1.65.0` upgrade (`Gemspec/AddRuntimeDependency`)
 * Code changes after update to `rubocop-1.68.0`
 * Remove `ruby-3.0` from CI, since it's EOLed
+* Fix minor code issue found by `rubocop-1.70.0`
 
 ## 0.5.0 (2024-02-02)
 
