@@ -23,7 +23,7 @@ jobs:
           gem install bundler
           bundle install --jobs 4 --retry 3
       - name: Check source files using `rubocop`
-        run: rubocop
+        run: bundle exec rubocop
       - name: Build and test with Rake
         env:
           TESTRAIL_URL: ${{ secrets.TESTRAIL_URL }}
